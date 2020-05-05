@@ -1,0 +1,179 @@
+html {
+  font-size: 100px;
+}
+/*状态栏*/
+#state_bar {
+  position: fixed;
+  top: 0.6rem;
+  left: 0;
+  height: 0.4rem;
+  font-family: "Arial Normal";
+  margin: 0;
+  padding: 0;
+  width: 3.6rem;
+  display: flex;
+  justify-content: center;
+  background: #ffffff;
+}
+.state {
+  margin: 0.1rem auto 0;
+  font-size: 0.16rem;
+}
+.focus {
+  color: #28AEFA;
+  border-bottom: 2px solid #28AEFA;
+}
+.line_under_state {
+  position: fixed;
+  top: 1.0rem;
+  left: 0.15rem;
+  width: 3.3rem;
+  border: 0.5px solid #28AEFA;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/*主体内容*/
+/*整体*/
+#content {
+  position: relative;
+  top: 1rem;
+  margin: 0;
+  display: grid;
+  grid-template-rows: repeat(3, 1.7rem);
+  z-index: 0;
+  float: left
+}
+
+#content li{
+  width: 3rem;
+  height: 1.7rem;
+  margin: auto;
+  margin-top: 0.1rem;
+  list-style: none;
+}
+
+/*两列布局*/
+li .firstcolumn {
+  width: 1.3rem;
+  float: left;
+}
+li .details {
+  width: 1.7rem;
+  float: right;
+}
+li img {
+  float: left;
+  height: 1.11rem;
+  width: 1.11rem;
+}
+/*图书信息*/
+.details span, .details input{
+  display: block;
+  padding: 0;
+  margin-left: 0;
+  position: relative;
+  top: -0.08rem;
+}
+
+/*按钮*/
+.btn {
+  float: left;
+  height: 0.24rem;
+  width: 0.6rem;
+  border: 1px solid #28AEFA;
+  border-radius: 5px;
+  background: #28AEFA;
+  color: #ffffff;
+  font-size: 0.15rem;
+  margin-right: 0.05rem;
+  margin-top: 0.1rem;
+}
+
+/*文字设定*/
+img {
+  font-size: 0.2rem;
+  
+}
+.bookname {
+  font-size: 0.24rem;
+  font-family: "黑体 bold";
+  font-weight: 700;
+  line-height: 0.4rem;
+}
+.price {
+  font-size: 0.16rem;
+  color: #FF0000;
+  line-height: 0.3rem;
+}
+.bookstate {
+  font-size: 0.14rem;
+}
+.hint_mark {
+  font-size: 0.14rem;
+  font-family: "Arial Normal";
+}
+
+/*弹窗*/
+.pop_up {
+  display: none;
+}
+
+.close_btn {
+  width: 0.17rem;
+  height: 0.17rem;
+}
+
+/*"不再购买"弹窗*/
+#notbuy_pop {
+  position: fixed;
+  left: 0.63rem;
+  top: 2.5rem;
+  width: 2.43rem;
+  height: 1.5rem;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  background: #ffffff;
+  text-align: center;
+  overflow: hidden;
+}
+#notbuy_row1 {
+  background: #28aefa;
+  height: 0.27rem;
+}
+#notbuy_row1 img {
+  float: right;
+  position: relative;
+  right: 0.05rem;
+  top: 0.03rem;
+  transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+}
+#notbuy_text {
+  position: relative;
+  left: 0.05rem;
+  top: 0.22rem;
+  text-align: center;
+  font-size: 0.2rem;
+}
+.notbuy_btn {
+  width: 0.66rem;
+  height: 0.26rem;
+  position: relative;
+  top: 0.32rem;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  background: #28AEFA;
+  color: white;
+  margin-left: 0.35rem;
+}
+
+/*按钮*/
+input[type="button"] {
+  outline: none;
+}
+input[type="button"]:active {
+  background: rgb(7, 148, 190);
+}

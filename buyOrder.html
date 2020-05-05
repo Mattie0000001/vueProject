@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+    <title>买书订单</title>
+    <script src="vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="buyOrder.css">
+</head>
+<html>
+    <body>
+    <!--状态栏-->
+    <div id="state_bar">
+        <span v-for="item in states" v-bind:id="item.id"
+        v-bind:class="[{focus: item.isFocus}, {state: true}]" @click="changeState">
+            {{item.text}}
+        </span>
+    </div>
+
+    <div class="line_under_state"></div>
+
+    <!--主要页面内容-->
+    <ul id="content">
+        <book v-for="item in orders" v-bind:info="item"></book>
+    </ul>
+
+    <script src="buyOrder.js"></script>
+    </body>
+</html>
