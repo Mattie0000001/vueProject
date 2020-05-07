@@ -45,18 +45,18 @@ var stateBar= new Vue ({
     }
  })
 
-Vue.component('book', {
-    props:['info'],
+Vue.component("book", {
+    props:["info"],
     template: `
     <li :class="info.status">
-        <div class='first_column'>
-            <img alt='图片丢了' :src="info.img">
+        <div class="first_column">
+            <img alt="图片丢了" :src="info.img">
         </div>
-        <div class='details'>
-            <span class='bookname'>{{info.name}}</span>
-            <span class='price'>￥{{info.price}}</span>
-            <span class='bookstate'>{{info.status}}</span>
-            <input class='btn' type='button' :value="info.btnV">
+        <div class="details">
+            <span class="bookname">{{info.name}}</span>
+            <span class="price">￥{{info.price}}</span>
+            <span class="bookstate">{{info.status}}</span>
+            <input class="btn" type="button" :value="info.btnV">
         </div>
     </li>`
 })
