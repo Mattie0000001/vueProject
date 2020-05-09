@@ -1,5 +1,5 @@
 <template>
-    <div id='story'>
+    <div id='story' @click='jump'>
         <lines v-for='item in lines' :key='item.id' :infor='item'></lines>
         <planet></planet>
     </div>
@@ -38,7 +38,7 @@
   }
   #six {
     transition-delay: 10s;
-    margin-top: 0.4rem
+    margin-top: 0.4rem;
   }
 </style>
 
@@ -49,6 +49,7 @@ export default {
   name: 'story',
   data () {
     return {
+      jsJump: false,
       lines: [
         {
           text: '我曾见过这世界<br>五彩缤纷',
@@ -79,6 +80,19 @@ export default {
   },
   components: {
     planet, lines
+  },
+  methods: {
+    jump: function () {
+      if (this.isJump) {
+        this.$router.push({ path: 'mainPage' })
+      }
+    },
+    change: function () {
+      this.isJump = true
+    }
+  },
+  mounted: function () {
+    setInterval(this.change, 12000)
   }
 }
 </script>

@@ -7,6 +7,7 @@
 <style>
   .sentence {
     margin-bottom: 0.1rem;
+    font-size: 0.15rem;
   }
 
   .fade-enter {
