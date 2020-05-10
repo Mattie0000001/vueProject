@@ -84,7 +84,7 @@ export default {
   methods: {
     jump: function () {
       if (this.isJump) {
-        this.$router.push({ path: 'mainPage' })
+        this.$router.push({ path: './mainPage' })
       }
     },
     change: function () {

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import story from '../views/storyline/story.vue'
-import mainPage from '../views/storyline/mainPage.vue'
+import mainPage from '../views/mainPage.vue'
 
 Vue.use(VueRouter)
 
@@ -20,7 +20,7 @@ const routes = [
     component: story
   },
   {
-    path: '/',
+    path: '/mainPage',
     name: 'mainPage',
     component: mainPage
   }
