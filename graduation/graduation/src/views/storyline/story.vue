@@ -43,8 +43,8 @@
 </style>
 
 <script>
-import lines from '../../components/storyline/lines.vue'
-import planet from '../../components/storyline/planet.vue'
+import lines from './lines.vue'
+import planet from './planet.vue'
 export default {
   name: 'story',
   data () {
@@ -84,6 +84,7 @@ export default {
   methods: {
     jump: function () {
       if (this.isJump) {
+        clearInterval(this.t)
         this.$router.push({ path: './mainPage' })
       }
     },
@@ -92,7 +93,8 @@ export default {
     }
   },
   mounted: function () {
-    setInterval(this.change, 12000)
+    var t = setInterval(this.change, 12000)
+    console.log(t)
   }
 }
 </script>

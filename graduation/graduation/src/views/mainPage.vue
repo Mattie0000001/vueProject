@@ -111,7 +111,7 @@ export default {
     position: absolute;
     left: 1.93rem;
     top: 0.75rem;
-    animation: revolutionSun 5s linear infinite;
+    animation: revolutionSun 10s linear infinite;
   }
   #SunMoon .name {
     top: 0.5rem;
@@ -125,7 +125,7 @@ export default {
     position: absolute;
     left: 0.52rem;
     top: 0.57rem;
-    animation: revolutionMirr 5s linear infinite;
+    animation: revolutionMirr 10s linear infinite;
   }
   #Mirror .name {
     top: 0.67rem;
