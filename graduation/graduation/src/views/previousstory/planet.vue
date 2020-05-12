@@ -4,14 +4,14 @@
     </div>
 </template>
 
-<style>
+<style scoped>
   #planet {
     position: fixed;
-    bottom: -0.4rem;
+    bottom: -5.3vh;
     right: 0;
   }
   #planet img {
-    width: 3.6rem;
+    width: 100vw;
   }
 </style>
 

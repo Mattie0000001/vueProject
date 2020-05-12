@@ -1,7 +1,7 @@
 <template>
     <div id='mainPage'>
         <!--遮罩层-->
-        <div id='lightbox'  @click='jump' @touchmove.prevent>
+        <div id='lightbox'  @click='jump'>
             <div class='tips' id="firstline">待定</div>
             <div class='tips'>#昵称和星球名可以在你的星球中修改哦~</div>
             <div class='tips'>点击继续...</div>
@@ -41,8 +41,8 @@ export default {
   name: 'mainPage',
   data () {
     return {
-      knownUrl: require('../../src/assets/mainpage/planet2.png'),
-      unknownUrl: require('../../src/assets/mainpage/planet3.png')
+      knownUrl: require('../../assets/mainpage/planet2.png'),
+      unknownUrl: require('../../assets/mainpage/planet3.png')
     }
   },
   methods: {
@@ -69,11 +69,7 @@ export default {
 }
 </script>
 
-<style>
-  html {
-    font-size: 27.77vw;
-  }
-
+<style scoped>
   /*遮罩层*/
   #lightbox {
     position: fixed;
@@ -90,15 +86,15 @@ export default {
   }
   .tips {
     position: relative;
-    top: 33%;
-    margin-bottom: 0.4rem;
-    font-size: 0.15rem;
+    top: 33vh;
+    margin-bottom: 1.11vw;
+    font-size: 4.2vw;
   }
 
   /*主页面*/
   #mainPage {
-    position: absolute;
-    font-size: 0.15rem;
+    position: fixed;
+    font-size: 4.2vw;
   }
 
   /*各个星球的定位*/
@@ -109,109 +105,109 @@ export default {
 
   #SunMoon {
     position: absolute;
-    left: 1.93rem;
-    top: 0.75rem;
+    left: 58vw;
+    top: 11.4vh;
     animation: revolutionSun 10s linear infinite;
   }
   #SunMoon .name {
-    top: 0.5rem;
+    top: 8.7vh;
   }
   #sunMoon {
-    width: 1rem;
-    height: 1rem;
+    width: 27.8vw;
+    height: 27.8vw;
   }
 
   #Mirror {
     position: absolute;
-    left: 0.52rem;
-    top: 0.57rem;
+    left: 14.4vw;
+    top: 8.8vh;
     animation: revolutionMirr 10s linear infinite;
   }
   #Mirror .name {
-    top: 0.67rem;
+    top: 11.4vh;
   }
   #mirror {
-    width: 1.36rem;
-    height: 1.36rem;
+    width: 37.8vw;
+    height: 37.8vw;
   }
 
   #Habitat {
     position: absolute;
-    left: 0.58rem;
-    top: 2.30rem;
+    left: 15vw;
+    top: 36vh;
   }
   #Habitat .name {
-    top: 0.75rem;
+    top: 12vh;
   }
   #habitat {
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 33.3vw;
+    height: 33.3vw;
   }
 
   #UnknownA {
     position: absolute;
-    left: 2.11rem;
-    top: 3.55rem;
+    left: 58.6vw;
+    top: 47.6vh;
   }
   #UnknownA .name {
-    top: 0.85rem;
-    font-size: 0.5rem;
+    top: 11.3vh;
+    font-size: 13.9vw;
     color: rgb(231, 230, 230);
   }
   #unknownA {
-    width: 1rem;
-    height: 1rem;
+    width: 27.8vw;
+    height: 27.8vw;
   }
 
   #UnknownB {
     position: absolute;
-    left: 1.04rem;
-    top: 4.78rem;
+    left: 28.9vw;
+    top: 64vh;
   }
   #UnknownB .name {
-    top: 0.7rem;
-    font-size: 0.4rem;
+    top: 9.3vh;
+    font-size: 11.1vw;
     color: rgb(231, 230, 230);
   }
   #unknownB {
-    width: 0.9rem;
-    height: 0.9rem;
+    width: 25vw;
+    height: 25vw;
   }
 
   /*星球旋转动画*/
   @keyframes revolutionMirr {
       0% {
-        transform-origin: 1.38rem 0.89rem;
+        transform-origin: 39.8vw 24vw;
         transform: rotate(0deg)
       }
       25% {
-        transform-origin: 1.38rem 0.89rem;
+        transform-origin: 39.8vw 24vw;
         transform: rotate(90deg)
       }
       75% {
-        transform-origin: 1.38rem 0.89rem;
+        transform-origin: 39.8vw 24vw;
         transform: rotate(270deg)
       }
       100% {
-        transform-origin: 1.38rem 0.89rem;
+        transform-origin: 39.8vw 24vw;
         transform: rotate(360deg)
       }
   }
   @keyframes revolutionSun {
       0% {
-        transform-origin: -0.03rem 0.71rem;
+        transform-origin: -3.8vw 20vw;
         transform: rotate(0deg)
       }
       25% {
-        transform-origin: -0.03rem 0.71rem;
+        transform-origin: -3.8vw 20vw;
         transform: rotate(90deg)
       }
       75% {
-        transform-origin: -0.03rem 0.71rem;
+        transform-origin: -3.8vw 20vw;
         transform: rotate(270deg)
       }
       100% {
-        transform-origin: -0.03rem 0.71rem;
+        transform-origin: -3.8vw 20vw;
         transform: rotate(360deg)
       }
   }

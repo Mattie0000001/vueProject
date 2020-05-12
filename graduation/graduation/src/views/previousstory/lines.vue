@@ -4,10 +4,10 @@
     </transition>
 </template>
 
-<style>
+<style scoped>
   .sentence {
-    margin-bottom: 0.1rem;
-    font-size: 0.15rem;
+    margin-bottom: 1.3vh;
+    font-size: 4.2vw;
   }
 
   .fade-enter {

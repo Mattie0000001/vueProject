@@ -5,19 +5,13 @@
     </div>
 </template>>
 
-<style>
-  html {
-    font-size: 27.77vw;
-    margin: 0;
-    padding: 0;
-  }
-
+<style scoped>
   /*文字样式*/
   #story {
-    font-size: 0.15rem;
+    font-size: 4.2vw;
     text-align: center;
     position: relative;
-    top: 0.6rem;
+    top: 8vh;
   }
 
   /*文字轮播动画*/
@@ -38,7 +32,7 @@
   }
   #six {
     transition-delay: 10s;
-    margin-top: 0.4rem;
+    margin-top: 5.3vh;
   }
 </style>
 
