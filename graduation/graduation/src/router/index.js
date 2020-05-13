@@ -13,7 +13,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/previous'
+    redirect: '/mainPage'
   },
   // {
   //   path: '/liveStar',

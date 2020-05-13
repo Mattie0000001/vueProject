@@ -7,7 +7,7 @@
 <style scoped>
   .sentence {
     position: relative;
-    top: 8vh;
+    top: 16vh;
     text-align: center;
     margin-bottom: 1.3vh;
     font-size: 4.2vw;

@@ -15,7 +15,7 @@
                 <img :src='knownUrl'>
             </div>
 
-            <div class='Mirror' @click="$router.push({ path: '/previousMirr' })">
+            <div class='Mirror' @click="$router.push({ path: '/mirror' })">
                 <span class='name'>魔镜星球</span>
                 <img :src='knownUrl'>
             </div>
