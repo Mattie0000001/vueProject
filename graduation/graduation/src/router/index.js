@@ -4,28 +4,40 @@ import VueRouter from 'vue-router'
 // import mainpage from '../views/mainpage/mainpage.vue'
 
 // const liveStar = () => import(/* webpackChunkName: "liveStar" */ '@/views/liveStar/liveStar.vue')
-const previousStory = () => import(/* webpackChunkName: "previousStory" */ '@/views/previousstory/previousstory.vue')
+// const previous = () => import(/* webpackChunkName: "previous" */ '@/views/storyLine/previous.vue')
 const mainpage = () => import(/* webpackChunkName: "mainpage" */ '@/views/mainpage/mainPage.vue')
+// const previousMirr = () => import(/* webpackChunkName: "previousMirr" */ '@/views/storyLine/previousMirr.vue')
+const mirror = () => import(/* webpackChunkName: "mirror" */ '@/views/mirror/mirror.vue')
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    redirect: '/previousStory'
+    redirect: '/previous'
   },
   // {
   //   path: '/liveStar',
   //   component: liveStar
   // },
-  {
-    path: '/previousStory',
-    name: 'previousStory',
-    component: previousStory
-  },
+  // {
+  //   path: '/previous',
+  //   name: 'previous',
+  //   component: previous
+  // },
   {
     path: '/mainPage',
     name: 'mainPage',
     component: mainpage
+  },
+  // {
+  //   path: '/previousMirr',
+  //   name: 'previousMirr',
+  //   component: previousMirr
+  // },
+  {
+    path: '/mirror',
+    name: 'mirror',
+    component: mirror
   }
 ]
 
