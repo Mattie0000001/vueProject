@@ -3,7 +3,9 @@
         <div>
             <lines v-for='item in lines' :key='item.id' :infor='item'></lines>
         </div>
-        <planet></planet>
+        <div class='planet'>
+            <img :src='planet'>
+        </div>
     </div>
 </template>
 
@@ -19,21 +21,31 @@
     height: 100vh;
     margin: 0;
   }
+
+  /**星球 */
+  .planet {
+    position: fixed;
+    bottom: -5.3vh;
+    right: 0;
+  }
+  .planet img {
+    width: 100vw;
+  }
 </style>
 
 <script>
 import lines from './lines.vue'
-import planet from './planet.vue'
 export default {
   name: 'story',
   data () {
     return {
-      isJump: true,
-      seen: true
+      isJump: false,
+      seen: true,
+      planet: require('../assets/storyline/planet.png')
     }
   },
   components: {
-    planet, lines
+    lines
   },
   props: {
     lines: Array

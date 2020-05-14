@@ -3,7 +3,7 @@
     <div class="left_wrap">
       <slot name="left">
         <div class="arrow_wrap" @click="back">
-          <img src='../assets/component/arrow.png' alt="">
+          <img src="../assets/component/arrow.png" alt="">
         </div>
       </slot>
     </div>
@@ -54,7 +54,7 @@ export default {
 }
 .header_wrap {
   width: 100vw;
-  height: 9vh;
+  height: 8vh;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;

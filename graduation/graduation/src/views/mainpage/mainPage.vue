@@ -2,6 +2,7 @@
     <div class='whole'>
         <!--前情回顾-->
         <story :lines='lines'></story>
+
         <!--遮罩层-->
         <div class='lightbox' v-if='show' @click='show = false'>
             <div class='tips'>待定</div>
@@ -10,7 +11,7 @@
         </div>
 
         <div>
-            <div class='SunMoon' @click="$router.push({ path: '/sun' })">
+            <div class='SunMoon' @click="$router.push({ path: '/' })">
                 <span class='name'>日月星球</span>
                 <img :src='knownUrl'>
             </div>
@@ -20,7 +21,7 @@
                 <img :src='knownUrl'>
             </div>
 
-            <div class='Habitat' @click="$router.push({ path: '/hab' })">
+            <div class='Habitat' @click="$router.push({ path: '/liveStar' })">
                 <span class='name'>{{usrname}}居住星球<br>(居住星球)</span>
                 <img :src='knownUrl'>
             </div>
@@ -39,7 +40,7 @@
 </template>
 
 <script>
-import story from '../storyLine/storyline.vue'
+import story from '../../components/storyline.vue'
 export default {
   name: 'mainPage',
   components: { story },
@@ -61,12 +62,12 @@ export default {
   },
   methods: {
     toast: function () {
-      //
+      this.$store.commit('setModalHint',
+        { text: '嘘！这个星球还没有开放哦，明天再来看看吧' })
     }
   }
 }
 </script>
-
 <style scoped>
   /*总体*/
   .whole {
@@ -96,6 +97,7 @@ export default {
   .name {
     z-index: 1;
     position: relative;
+    left: 6vw;
   }
 
   .SunMoon {
@@ -107,7 +109,7 @@ export default {
   .SunMoon .name {
     top: 8.7vh;
   }
-  #SunMoon img {
+  .SunMoon img {
     width: 27.8vw;
     height: 27.8vw;
   }
@@ -164,7 +166,7 @@ export default {
     font-size: 11.1vw;
     color: rgb(231, 230, 230);
   }
-  .UnknownB img {
+  .unknownB {
     width: 25vw;
     height: 25vw;
   }

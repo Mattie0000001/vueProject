@@ -6,7 +6,8 @@
         <transition name='overturn' mode='out-in'>
             <div v-if='seen' key='front' class='main'>
                 <div>
-                    <p class='onmirror'>开启属于你的未知旅程...</p>
+                    <p class='onmirror' @click="$router.push({path: '/adventure'})">
+                        开启属于你的未知旅程...</p>
                     <img :src='mirrorF' class='mirror'>
                 </div>
                 <div @click='seen = !seen'>
@@ -19,7 +20,7 @@
                     <span class='titleBack'>朋友眼中的你</span>
                     <span class='change'>换一个</span>
                 </div>
-                <img :src='person'>
+                <img :src='person' class='person'>
                 <p class='onperson'>点击进入</p>
                 <div @click='seen = !seen'>
                     <p class='onbtn'>转</p>
@@ -48,34 +49,39 @@
     perspective: 800px;
     -webkit-perspective: 800px;
     overflow: hidden;
+    text-align: center;
   }
   /*正面*/
   .mirror {
     position: relative;
-    top: -3vh;
+    top: 3vh;
     width: 63.33vw;
     height: 44.67vh;
   }
   .btn {
     position: relative;
-    top: -4vh;
+    top: 5vh;
     width: 14.44vw;
     height: 14.44vw;
   }
   .onmirror {
     position: relative;
-    top: 35vh;
+    top: 38vh;
     z-index: 2;
   }
   .onbtn {
     position: relative;
-    top: 4vh;
+    top: 10vh;
     z-index: 2;
   }
   /*反面*/
   .onperson {
     position: relative;
     top: -5vh;
+  }
+  .person {
+    position: relative;
+    top: 1vh;
   }
   .change {
    position: absolute;
@@ -122,7 +128,7 @@
 <script>
 import headTitle from '../../components/headTitle.vue'
 import colorBox from '../../components/colorBox.vue'
-import story from '../storyLine/storyline.vue'
+import story from '../../components/storyline.vue'
 export default {
   name: 'mirror',
   components: {

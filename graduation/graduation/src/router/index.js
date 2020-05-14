@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import previousStory from '../views/previousstory/previousstory.vue'
-// import mainpage from '../views/mainpage/mainpage.vue'
 
-// const liveStar = () => import(/* webpackChunkName: "liveStar" */ '@/views/liveStar/liveStar.vue')
-// const previous = () => import(/* webpackChunkName: "previous" */ '@/views/storyLine/previous.vue')
-const mainpage = () => import(/* webpackChunkName: "mainpage" */ '@/views/mainpage/mainPage.vue')
-// const previousMirr = () => import(/* webpackChunkName: "previousMirr" */ '@/views/storyLine/previousMirr.vue')
+const liveStar = () => import(/* webpackChunkName: "liveStar" */ '@/views/liveStar/liveStar.vue')
 const mirror = () => import(/* webpackChunkName: "mirror" */ '@/views/mirror/mirror.vue')
+const getEvaluate = () => import(/* webpackChunkName: "getEvaluate" */ '@/views/getEvaluate/getEvaluate.vue')
+const getMemoirs = () => import(/* webpackChunkName: "getMemoirs" */ '@/views/getMemoirs/getMemoirs.vue')
+const mainpage = () => import(/* webpackChunkName: "mainpage" */ '@/views/mainpage/mainPage.vue')
+const adventure = () => import(/* webpackChunkName: "adventure" */ '@/views/adventure/adventure.vue')
 Vue.use(VueRouter)
 
 const routes = [
@@ -15,29 +14,29 @@ const routes = [
     path: '/',
     redirect: '/mainPage'
   },
-  // {
-  //   path: '/liveStar',
-  //   component: liveStar
-  // },
-  // {
-  //   path: '/previous',
-  //   name: 'previous',
-  //   component: previous
-  // },
   {
-    path: '/mainPage',
-    name: 'mainPage',
-    component: mainpage
+    path: '/liveStar',
+    component: liveStar
   },
-  // {
-  //   path: '/previousMirr',
-  //   name: 'previousMirr',
-  //   component: previousMirr
-  // },
   {
     path: '/mirror',
-    name: 'mirror',
     component: mirror
+  },
+  {
+    path: '/getEvaluate',
+    component: getEvaluate
+  },
+  {
+    path: '/getMemoirs',
+    component: getMemoirs
+  },
+  {
+    path: '/mainPage',
+    component: mainpage
+  },
+  {
+    path: '/adventure',
+    component: adventure
   }
 ]
 
