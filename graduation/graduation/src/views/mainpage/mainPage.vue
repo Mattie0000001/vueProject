@@ -1,7 +1,9 @@
 <template>
     <div class='whole'>
         <!--前情回顾-->
-        <story :lines='lines'></story>
+        <div v-if='isFirst'>
+            <story :lines='lines'></story>
+        </div>
 
         <!--遮罩层-->
         <div class='lightbox' v-if='show' @click='show = false'>
@@ -46,6 +48,7 @@ export default {
   components: { story },
   data () {
     return {
+      isFirst: false,
       usrname: '',
       show: true,
       knownUrl: require('../../assets/mainpage/planet2.png'),
@@ -64,6 +67,12 @@ export default {
     toast: function () {
       this.$store.commit('setModalHint',
         { text: '嘘！这个星球还没有开放哦，明天再来看看吧' })
+    }
+  },
+  created: function () {
+    if (localStorage.getItem('isFirst') === null) {
+      this.isFirst = true
+      localStorage.setItem('isFirst', false)
     }
   }
 }

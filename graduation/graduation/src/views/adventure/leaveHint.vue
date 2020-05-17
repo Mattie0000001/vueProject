@@ -1,9 +1,9 @@
 <template>
-    <div class='hintPage' v-if='isLeave'>
+    <div class='hintPage'>
         <div class='hintBox'>
             <p>真的要提前终止旅程吗？</p>
             <p class='diffColor'>（放弃探险将失去专属测评和色彩值奖励）</p>
-            <button class='hintBtn' @click='isLeave = false'>继续探险</button>
+            <button class='hintBtn' @click="$emit('hide')">继续探险</button>
             <button class='hintBtn' @click="$router.push({ path: '/mirror' })">
                 忍痛离开
             </button>
@@ -14,7 +14,7 @@
 <script>
 export default {
   name: 'leave-pop',
-  props: ['isLeave']
+  props: ['hide']
 }
 </script>
 
@@ -31,7 +31,7 @@ export default {
   top: 39.06vh;
   left: 8.33vw;
   width: 83.3vw;
-  height: 19.06vh;
+  height: 25vh;
   font-size: 4.2vw;
   border: 1px solid rgb(121, 121, 121);
   border-radius: 15px;
@@ -39,6 +39,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
   padding-left: 2vw;
 }
 .hintBtn {

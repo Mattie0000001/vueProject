@@ -7,6 +7,10 @@ const getEvaluate = () => import(/* webpackChunkName: "getEvaluate" */ '@/views/
 const getMemoirs = () => import(/* webpackChunkName: "getMemoirs" */ '@/views/getMemoirs/getMemoirs.vue')
 const mainpage = () => import(/* webpackChunkName: "mainpage" */ '@/views/mainpage/mainPage.vue')
 const adventure = () => import(/* webpackChunkName: "adventure" */ '@/views/adventure/adventure.vue')
+const lineA = () => import(/* webpackChunkName: "lineA" */ '@/views/adventure/lineA.vue')
+const lineB = () => import(/* webpackChunkName: "lineB" */ '@/views/adventure/lineB.vue')
+const result = () => import(/* webpackChunkName: "result" */ '@/views/adventure/result.vue')
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -37,6 +41,18 @@ const routes = [
   {
     path: '/adventure',
     component: adventure
+  },
+  {
+    path: '/lineA',
+    component: lineA
+  },
+  {
+    path: '/lineB',
+    component: lineB
+  },
+  {
+    path: '/result',
+    component: result
   }
 ]
 

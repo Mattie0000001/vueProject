@@ -1,7 +1,10 @@
 <template>
     <div class='whole'>
         <!--前情回顾-->
-        <story :lines='lines'></story>
+        <div v-if='isFirst'>
+            <story :lines='lines'></story>
+        </div>
+
         <head-title :title='title' :tip='tip'></head-title>
         <transition name='overturn' mode='out-in'>
             <div v-if='seen' key='front' class='main'>
@@ -31,6 +34,42 @@
         <color-box></color-box>
     </div>
 </template>
+
+<script>
+import headTitle from '../../components/headTitle.vue'
+import colorBox from '../../components/colorBox.vue'
+import story from '../../components/storyline.vue'
+export default {
+  name: 'mirror',
+  components: {
+    headTitle, colorBox, story
+  },
+  data () {
+    return {
+      isFirst: false,
+      seen: true,
+      title: '魔镜星球',
+      tip: `完成性格测试可获得10色彩值
+            \n分享他评二维码，也可获得10色彩值
+            \n他人对你的评价可在居住星球的信箱中查看哦`,
+      mirrorF: require('../../assets/mirror/mirror.png'),
+      btn: require('../../assets/mirror/btn.png'),
+      person: require('../../assets/mirror/person.png'),
+      lines: [
+        '梯仔在这片灰蒙蒙的星球探索时<br>突然眼前出现一道晃眼的白光让梯仔睁不开眼睛',
+        '定睛一看<br>原来有一面巨大的镜子<br>伫立在梯仔面前',
+        '点击继续...'
+      ]
+    }
+  },
+  created: function () {
+    if (localStorage.getItem('isFirstMir') === null) {
+      this.isFirst = true
+      localStorage.setItem('isFirstMir', false)
+    }
+  }
+}
+</script>
 
 <style scoped>
   .whole {
@@ -124,32 +163,3 @@
     100% { transform: rotate3d(0, 1, 0, 0deg) }
   }
 </style>
-
-<script>
-import headTitle from '../../components/headTitle.vue'
-import colorBox from '../../components/colorBox.vue'
-import story from '../../components/storyline.vue'
-export default {
-  name: 'mirror',
-  components: {
-    headTitle, colorBox, story
-  },
-  data () {
-    return {
-      seen: true,
-      title: '魔镜星球',
-      tip: `完成性格测试可获得10色彩值
-            \n分享他评二维码，也可获得10色彩值
-            \n他人对你的评价可在居住星球的信箱中查看哦`,
-      mirrorF: require('../../assets/mirror/mirror.png'),
-      btn: require('../../assets/mirror/btn.png'),
-      person: require('../../assets/mirror/person.png'),
-      lines: [
-        '梯仔在这片灰蒙蒙的星球探索时<br>突然眼前出现一道晃眼的白光让梯仔睁不开眼睛',
-        '定睛一看<br>原来有一面巨大的镜子<br>伫立在梯仔面前',
-        '点击继续...'
-      ]
-    }
-  }
-}
-</script>

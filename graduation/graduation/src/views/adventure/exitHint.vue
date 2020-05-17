@@ -1,5 +1,5 @@
 <template>
-    <div class='hintPage' v-if='isExit'>
+    <div class='hintPage'>
         <div class='hintBox'>
             <p>{{hint}}</p>
             <button class='hintBtn' @click="$router.push({path:'/mirror'})">
@@ -37,6 +37,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
   padding-left: 2vw;
 }
 .hintBtn {

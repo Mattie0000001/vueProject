@@ -4,21 +4,21 @@
 
         <div v-if='now===1' class='test'>
             <div class='title'>{{firstTitle}}</div>
-            <button class='options' @click='chooseInFirst'
+            <button class='options' @click='choose'
              v-for='item in first' :key='item.name' :id='item.name'>
                 {{item.text}}
             </button>
         </div>
         <div v-if='now===2' class='test'>
             <div class='title'>{{secondTitle}}</div>
-            <button class='options' @click='chooseInSecond'
+            <button class='options' @click='choose'
              v-for='item in second' :key='item.name' :id='item.name'>
                 {{item.text}}
             </button>
         </div>
         <div v-if='now===3' class='test'>
             <div class='title'>{{thirdTitle}}</div>
-            <button class='options' @click='chooseInThird'
+            <button class='options' @click='choose'
              v-for='item in third' :key='item.name' :id='item.name'>
                 {{item.text}}
             </button>
@@ -31,9 +31,14 @@
         </div>
 
         <!--离开提示框-->
-        <leave-pop :isLeave='isLeave'></leave-pop>
+        <div v-if='isLeave'>
+            <leave-pop v-on:hide='hide'></leave-pop>
+        </div>
+
         <!--退出提示框-->
-        <exit-pop :isExit='isExit' :hint='hint'></exit-pop>
+        <div v-if='isExit'>
+            <exit-pop :hint='hint'></exit-pop>
+        </div>
     </div>
 </template>
 
@@ -47,14 +52,13 @@ export default {
   },
   data () {
     return {
+      isOK: false,
       backImg: require('../../assets/mirror/back.png'),
       isLeave: false,
       isExit: false,
       hint: 'none',
       now: 1,
-      choiceOne: 'none',
-      choiceTwo: 'none',
-      choiceThird: 'none',
+      choice: 'none',
       firstTitle: '现在你要出发去往星际探索，你会带什么东西?',
       secondTitle: '在旅途过程中遇到流星雨，你会许下哪种愿望?',
       thirdTitle: '你突然在半路上遇到了外星人，你会',
@@ -76,29 +80,39 @@ export default {
     }
   },
   methods: {
-    chooseInFirst: function (el) {
-      this.choiceOne = el.id
-      sessionStorage.setItem('one', this.choiceOne)
+    choose: function (el) {
+      this.isOK = true
+      this.choice = el.target.id
+      var number = 'one'
+      switch (this.now) {
+        case 1 :
+          number = 'one'
+          break
+        case 2 :
+          number = 'two'
+          break
+        case 3 :
+          number = 'three'
+          break
+      }
+      sessionStorage.setItem(number, this.choice)
     },
-    chooseInSecond: function (el) {
-      this.choiceTwo = el.id
-      sessionStorage.setItem('two', this.choiceTwo)
-    },
-    chooseInThird: function (el) {
-      this.choiceThird = el.id
-      sessionStorage.setItem('third', this.choiceThree)
-    },
-    goToNext: function () {
+    gotoNext: function () {
       if (this.now < 3) {
         this.now++
-      } else if (this.now === 3 && this.choiceThree === 'hello') {
-        this.$router.push({ path: './lineA.vue' })
-      } else if (this.now === 3 && this.choiceThree === 'go') {
-        this.$router.push({ path: './lineB.vue' })
-      } else if (this.now === 3 && this.choiceThree === 'beat') {
+      }
+      if (this.choice === 'hello') {
+        this.$router.push({ path: '/lineA' })
+      } else if (this.choice === 'go') {
+        this.$router.push({ path: '/lineB' })
+      } else if (this.choice === 'beat') {
         this.hint = '你不敌对方，壮烈牺牲，重头来过吧'
         this.isExit = true
       }
+      this.isOK = false
+    },
+    hide: function () {
+      this.isLeave = false
     }
   }
 }
