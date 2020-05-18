@@ -23,7 +23,8 @@
                     <span class='titleBack'>朋友眼中的你</span>
                     <span class='change'>换一个</span>
                 </div>
-                <img :src='person' class='person'>
+                <img :src='person' class='person'
+                 @click="$router.push({ path: '/evaluate'})">
                 <p class='onperson'>点击进入</p>
                 <div @click='seen = !seen'>
                     <p class='onbtn'>转</p>

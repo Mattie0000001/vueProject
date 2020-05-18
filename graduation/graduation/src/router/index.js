@@ -10,6 +10,8 @@ const adventure = () => import(/* webpackChunkName: "adventure" */ '@/views/adve
 const lineA = () => import(/* webpackChunkName: "lineA" */ '@/views/adventure/lineA.vue')
 const lineB = () => import(/* webpackChunkName: "lineB" */ '@/views/adventure/lineB.vue')
 const result = () => import(/* webpackChunkName: "result" */ '@/views/adventure/result.vue')
+const share = () => import(/* webpackChunkName: "share" */ '@/views/impression/share.vue')
+const evaluate = () => import(/* webpackChunkName: "evaluate" */ '@/views/impression/evaluate.vue')
 
 Vue.use(VueRouter)
 
@@ -53,6 +55,14 @@ const routes = [
   {
     path: '/result',
     component: result
+  },
+  {
+    path: '/share',
+    component: share
+  },
+  {
+    path: '/evaluate',
+    component: evaluate
   }
 ]
 
