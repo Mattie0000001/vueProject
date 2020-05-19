@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id='sharePage'>
         <div class='headBar'>
             <img src='../../assets/mirror/backS.png' class='back'
              @click="$router.push({path: '/'})">
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import html2canvas from 'html2canvas'
 import QRCode from 'qrcodejs2'
 export default {
   name: 'share',
@@ -32,6 +33,7 @@ export default {
   },
   mounted: function () {
     this.$nextTick(function () {
+      // 二维码
       /* eslint-disable no-new */
       new QRCode(document.querySelector('.qrcode'),
         {
@@ -42,12 +44,61 @@ export default {
           colorLight: '#ffffff',
           correctLevel: QRCode.CorrectLevel.H
         })
+
+      // 把网页转化为图片
+      var cntElem = document.querySelector('#sharePage')
+      var shareContent = cntElem
+      var width = shareContent.offsetWidth
+      var height = shareContent.offsetHeight
+      var canvas = document.createElement('canvas')
+      canvas.width = String(+width)
+      canvas.height = String(+height)
+      document.body.append(canvas)
+
+      console.log(canvas.width, canvas.height)
+
+      var opts = {
+        // logging: true, // 日志开关，便于查看html2canvas的内部执行流程
+        scale: 1,
+        canvas: canvas,
+        width: width,
+        height: height,
+        dpi: 4,
+        useCORS: true
+      }
+      console.log(opts)
+
+      html2canvas(shareContent, opts).then(function (canvas) {
+        var context = canvas.getContext('2d')
+        context.mozImageSmoothingEnabled = false
+        context.webkitImageSmoothingEnabled = false
+        context.msImageSmoothingEnabled = false
+        context.imageSmoothingEnabled = false
+        var imgUrl = canvas.toDataURL('image/jpeg')
+
+        var img = document.createElement('img')
+        img.src = imgUrl
+        img.style.cssText = `
+          width:100vw;
+          height:100vh;
+          position:absolute;
+          top:0;
+          left:0;
+          z-index:999;
+          opacity:0;
+          `
+        document.body.append(img)
+      })
     })
   }
 }
 </script>
 
 <style scoped>
+  #sharePage {
+    height: 100vh;
+    width: 100vw;
+  }
   .back {
     position: fixed;
     top: 1vh;
