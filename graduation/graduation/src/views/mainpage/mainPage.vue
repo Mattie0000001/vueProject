@@ -24,6 +24,7 @@
             </div>
 
             <div class='Habitat' @click="$router.push({ path: '/liveStar' })">
+                <div class='point' v-if='isUnread'></div>
                 <span class='name'>{{usrname}}居住星球<br>(居住星球)</span>
                 <img :src='knownUrl'>
             </div>
@@ -48,9 +49,10 @@ export default {
   components: { story },
   data () {
     return {
+      isUnread: false,
       isFirst: false,
       usrname: '',
-      show: true,
+      show: false,
       knownUrl: require('../../assets/mainpage/planet2.png'),
       unknownUrl: require('../../assets/mainpage/planet3.png'),
       lines: [
@@ -67,13 +69,29 @@ export default {
     toast: function () {
       this.$store.commit('setModalHint',
         { text: '嘘！这个星球还没有开放哦，明天再来看看吧' })
+    },
+    uncomplete: function () {
+      if (localStorage.getItem('') === null) {
+        this.$store.commit('setModalHint',
+          { text: '你还没有完成其他星球的剧情哦~先去探索其他星球吧' })
+      }
     }
   },
   created: function () {
     if (localStorage.getItem('isFirst') === null) {
       this.isFirst = true
+      this.show = true
       localStorage.setItem('isFirst', false)
     }
+  },
+  mounted: function () {
+    this.$axios
+      .get('/user/status_get')
+      .then((data) => {
+        if (data.status) { // 有新消息
+          this.isUnread = true
+        }
+      })
   }
 }
 </script>
@@ -102,6 +120,17 @@ export default {
     font-size: 4.2vw;
   }
 
+  /**未读小红点 */
+  .point {
+    position: relative;
+    top: 18vw;
+    left: 28vw;
+    width: 2vw;
+    border-radius: 2vw;
+    height: 2vw;
+    border: 1px solid red;
+    background: red;
+  }
   /*各个星球的定位*/
   .name {
     z-index: 1;
