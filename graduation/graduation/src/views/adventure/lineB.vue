@@ -33,19 +33,25 @@
             <exit-pop :hint='hint'></exit-pop>
         </div>
 
+        <!--终点提示框-->
+        <div v-if='final'>
+            <final-pop @gotoFinal='gotoFinal'></final-pop>
+        </div>
     </div>
 </template>
 
 <script>
 import leavePop from './leaveHint.vue'
 import exitPop from './exitHint.vue'
+import finalPop from './finalPop.vue'
 export default {
   name: 'adventure',
   components: {
-    leavePop, exitPop
+    leavePop, exitPop, finalPop
   },
   data () {
     return {
+      final: false,
       isOK: false,
       isLeave: false,
       isExit: false,
@@ -75,7 +81,7 @@ export default {
     },
     gotoNext: function () {
       if (this.now === 9) {
-        this.$router.push({ path: '/result', query: { line: 'B' } })
+        this.final = true
       } else if (this.now === 8 && this.choice === 'explore') {
         this.hint = '冲进黑洞其实也没什么，下辈子注意少看点科幻小说就行了'
         this.isExit = true
@@ -88,6 +94,10 @@ export default {
     },
     hide: function () {
       this.isLeave = false
+    },
+    gotoFinal: function () {
+      this.$router.push({ path: '/result', query: { line: 'B' } })
+      this.final = false
     }
   }
 }

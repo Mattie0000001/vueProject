@@ -1,22 +1,24 @@
 <template>
-    <div id='sharePage'>
+    <div>
         <div class='headBar'>
             <img src='../../assets/mirror/backS.png' class='back'
-             @click="$router.push({path: '/'})">
+             @click='$router.go(-1)'>
             <img src='../../assets/mirror/share.png' class='share'>
         </div>
 
-        <div class='words'>
-            <p class='big'>你眼中的TA，是什么样子的呢</p>
-            <p class='small'>扫描二维码</p>
-            <p class='big'>写下你对 {{usrname}}的专属印象</p>
-        </div>
+        <div id='sharePart'>
+            <div class='words'>
+                <p class='big'>你眼中的TA，是什么样子的呢</p>
+                <p class='small'>扫描二维码</p>
+                <p class='big'>写下你对 {{usrname}}的专属印象</p>
+            </div>
 
-        <img src='../../assets/mirror/person.png' class='person'>
+            <img src='../../assets/mirror/person.png' class='person'>
 
-        <div class='qrcodeBox'>
-            <p>长按保存图片</p>
-            <div class='qrcode'></div>
+            <div class='qrcodeBox'>
+                <p>长按保存图片</p>
+                <div class='qrcode'></div>
+            </div>
         </div>
     </div>
 </template>
@@ -46,14 +48,15 @@ export default {
         })
 
       // 把网页转化为图片
-      var cntElem = document.querySelector('#sharePage')
+      var cntElem = document.querySelector('#sharePart')
       var shareContent = cntElem
       var width = shareContent.offsetWidth
       var height = shareContent.offsetHeight
       var canvas = document.createElement('canvas')
       canvas.width = String(+width)
       canvas.height = String(+height)
-      document.body.append(canvas)
+      canvas.style.opacity = 0
+      document.querySelector('#sharePart').append(canvas)
 
       console.log(canvas.width, canvas.height)
 
@@ -80,14 +83,14 @@ export default {
         img.src = imgUrl
         img.style.cssText = `
           width:100vw;
-          height:100vh;
+          height:91vh;
           position:absolute;
-          top:0;
+          top:9vh;
           left:0;
           z-index:999;
           opacity:0;
           `
-        document.body.append(img)
+        document.querySelector('#sharePart').append(img)
       })
     })
   }
@@ -95,8 +98,8 @@ export default {
 </script>
 
 <style scoped>
-  #sharePage {
-    height: 100vh;
+  #sharePart {
+    height: 91vh;
     width: 100vw;
   }
   .back {
@@ -105,6 +108,7 @@ export default {
     left: 1vh;
     width: 6.11vw;
     height: 6.11vw;
+    z-index: 1000;
   }
   .share {
     position: absolute;

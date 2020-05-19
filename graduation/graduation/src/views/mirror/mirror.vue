@@ -9,9 +9,9 @@
         <transition name='overturn' mode='out-in'>
             <div v-if='seen' key='front' class='main'>
                 <div>
-                    <p class='onmirror' @click="$router.push({path: '/adventure'})">
+                    <p class='onmirror'>
                         开启属于你的未知旅程...</p>
-                    <img :src='mirrorF' class='mirror'>
+                    <img :src='mirrorF' class='mirror'  @click='gotoAdventure'>
                 </div>
                 <div @click='seen = !seen'>
                     <p class='onbtn'>转</p>
@@ -33,20 +33,27 @@
             </div>
         </transition>
         <color-box></color-box>
+
+        <!--性格测评已完成提示-->
+        <div v-if='isAgain'>
+            <hint-pop></hint-pop>
+        </div>
     </div>
 </template>
 
 <script>
+import hintPop from './hint.vue'
 import headTitle from '../../components/headTitle.vue'
 import colorBox from '../../components/colorBox.vue'
 import story from '../../components/storyline.vue'
 export default {
   name: 'mirror',
   components: {
-    headTitle, colorBox, story
+    headTitle, colorBox, story, hintPop
   },
   data () {
     return {
+      isAgain: false,
       isFirst: false,
       seen: true,
       title: '魔镜星球',
@@ -67,6 +74,16 @@ export default {
     if (localStorage.getItem('isFirstMir') === null) {
       this.isFirst = true
       localStorage.setItem('isFirstMir', false)
+    }
+  },
+  methods: {
+    gotoAdventure: function () {
+      if (localStorage.getItem('personality')) {
+        // 已经测过
+        this.isAgain = true
+      } else {
+        this.$router.push({ path: '/adventure' })
+      }
     }
   }
 }
