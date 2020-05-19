@@ -12,6 +12,7 @@ const lineB = () => import(/* webpackChunkName: "lineB" */ '@/views/adventure/li
 const result = () => import(/* webpackChunkName: "result" */ '@/views/adventure/result.vue')
 const share = () => import(/* webpackChunkName: "share" */ '@/views/impression/share.vue')
 const evaluate = () => import(/* webpackChunkName: "evaluate" */ '@/views/impression/evaluate.vue')
+const lead = () => import(/* webpackChunkName: "lead" */ '@/views/impression/lead.vue')
 
 Vue.use(VueRouter)
 
@@ -63,6 +64,10 @@ const routes = [
   {
     path: '/evaluate',
     component: evaluate
+  },
+  {
+    path: '/lead',
+    component: lead
   }
 ]
 

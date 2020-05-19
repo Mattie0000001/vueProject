@@ -25,7 +25,10 @@ export default {
   name: 'result',
   data () {
     return {
-      title: '睡柱我妻善逸',
+      titleOne: ['林深故人', '浮生居士', '青袍道长', '蓬莱仙使'],
+      titleTwo: ['老佛爷宝藏茶', '芝芝桃桃', '抹茶可可星冰乐', '大红袍寒冰牛乳茶'],
+      titleThree: ['疯狂科学家', '秃头程序员', '时间管理大师', '霍格沃茨学士'],
+      title: '',
       first: '',
       second: '',
       third: '',
@@ -34,14 +37,18 @@ export default {
     }
   },
   mounted: function () {
-    // 第一个性格结果
+    // 第一个性格结果+头衔
+    var random = Math.floor(Math.random() * 4)
     var firstItem = (this.$route.query.line === 'A') ? sessionStorage.getItem('seven')
       : sessionStorage.getItem('nine')
     if (firstItem === 'forest') {
+      this.title = this.titleOne[random]
       this.first = '你的性格较为安静沉稳从，热爱大自然。你喜欢独处，享受属于自己的空间'
     } else if (firstItem === 'sweet') {
+      this.title = this.titleTwo[random]
       this.first = '你还是个不折不扣的小吃货'
     } else if (firstItem === 'book') {
+      this.title = this.titleThree[random]
       this.first = '你热爱学习，具有科研精神，心思细腻'
     }
     // 第二个性格结果

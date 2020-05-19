@@ -74,7 +74,9 @@ export default {
       this.isOK = true
     },
     gotoNext: function () {
-      if (this.now === 8 && this.choice === 'explore') {
+      if (this.now === 9) {
+        this.$router.push({ path: '/result', query: { line: 'B' } })
+      } else if (this.now === 8 && this.choice === 'explore') {
         this.hint = '冲进黑洞其实也没什么，下辈子注意少看点科幻小说就行了'
         this.isExit = true
       } else if (this.now === 8 && this.choice === 'quit') {
@@ -82,9 +84,6 @@ export default {
         this.isExit = true
       } else {
         this.now++
-      }
-      if (this.now === 9) {
-        this.$router.push({ path: '/result', query: { line: 'B' } })
       }
     },
     hide: function () {

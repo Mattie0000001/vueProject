@@ -24,7 +24,7 @@
                     <span class='change'>换一个</span>
                 </div>
                 <img :src='person' class='person'
-                 @click="$router.push({ path: '/evaluate'})">
+                 @click="$router.push({ path: '/share'})">
                 <p class='onperson'>点击进入</p>
                 <div @click='seen = !seen'>
                     <p class='onbtn'>转</p>

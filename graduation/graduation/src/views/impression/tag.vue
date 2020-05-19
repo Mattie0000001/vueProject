@@ -8,9 +8,7 @@
 
             <div class='labelBox'>
                 <button v-for='item in labels' :key='item.num'
-                 @click="$emit('send', item.text)"
-                 class='label'
-                >
+                 @click='fill' class='label'>
                     {{item.text}}
                 </button>
             </div>
@@ -19,9 +17,6 @@
                 <span >自定义</span>
                 <input type='text' maxlength="12" class='input'
                  v-model='self'>
-                <input type='radio' class='radio'
-                 @click="selfDefine"
-                 disabled='isDisable'>
             </div>
 
             <div class='btn' @click="$emit('unshow')">取消</div>
@@ -33,11 +28,13 @@
 <script>
 export default {
   name: 'tag',
-  props: ['unshow', 'send', 'remove'],
+  props: {
+    unshow: Function,
+    send: Function
+  },
   data () {
     return {
       isDisable: true,
-      index: 0,
       labels: [
         { text: '可爱', num: 'one' },
         { text: '帅气', num: 'two' },
@@ -46,21 +43,27 @@ export default {
         { text: '摸鱼', num: 'five' },
         { text: '佛系', num: 'six' }
       ],
-      self: ''
+      self: null
     }
   },
   methods: {
     change: function () {
       // 再说吧
     },
-    selfDefine: function () {
-      this.isDisable = false
-      $emit('delete')
+    fill: function (el) {
+      var data = {
+        num: this.$parent.number,
+        text: el.target.innerText
+      }
+      this.$emit('send', data)
     },
     sure: function () {
-      if (self !== '') {
-        this.$emit('delete')
-        this.$emit('send', this.self)
+      if (this.self !== null) {
+        var data = {
+          num: this.$parent.number,
+          text: this.self
+        }
+        this.$emit('send', data)
       }
       this.$emit('unshow')
     }

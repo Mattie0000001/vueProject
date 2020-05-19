@@ -35,7 +35,7 @@ export default {
       /* eslint-disable no-new */
       new QRCode(document.querySelector('.qrcode'),
         {
-          text: window.location.href.split('?')[0].replace('share', 'impression'),
+          text: window.location.href.split('?')[0].replace('share', 'evaluate'),
           height: 80,
           width: 80,
           colorDark: '#000000',

@@ -4,7 +4,7 @@
 
         <!--选词的框-->
         <div v-for='(item,index) in words' :key='item.class'
-         :class='item.class' class='word'
+         :class='item.class' class='word' :id='item.class'
          @click='choose'
         >
             {{adj[index]}}
@@ -28,7 +28,7 @@
         <p class='tip' v-if='isComplete'>您未填写完整信息哦~</p>
 
         <div v-if='show'>
-            <tag @send='getEvaluate' @unshow='unshow' @remove='remove'>
+            <tag @send='getEvaluate' @unshow='unshow'>
             </tag>
         </div>
     </div>
@@ -47,7 +47,7 @@ export default {
       isComplete: false,
       name: '',
       adj: [],
-      number: 'one', // 第几个评价
+      number: 1, // 第几个评价
       img: [
         { class: 'one' },
         { class: 'two' },
@@ -66,41 +66,60 @@ export default {
   },
   methods: {
     choose: function (el) {
-      if (el.target.innerText !== null) {
-        this.adj.pop()
-      }
       this.show = true
+      switch (el.target.id) {
+        case 'a' :
+          this.number = 0
+          break
+        case 'b' :
+          this.number = 1
+          break
+        case 'c' :
+          this.number = 2
+          break
+        case 'd' :
+          this.number = 3
+          break
+        case 'e' :
+          this.number = 4
+          break
+      }
     },
     unshow: function () {
       this.show = false
-      console.log('unshow')
-    },
-    remove: function () {
-      this.adj.pop()
     },
     getEvaluate: function (data) { // 接受子组件的传值
-      this.adj.push(data) // 填充性格形容词
+      this.adj[data.num] = data.text
     },
     submit: function () {
       // 判断信息是否完整
-      if (this.name === '' || this.adj.length < 6) {
+      if (this.name === '' || this.adj.length < 5) {
         this.isComplete = true
       } else {
-        // axios
-        // .post('/evaluate/send',{
-        //   e1: adj[0],
-        //   e2: adj[1],
-        //   e3: adj[2],
-        //   e4: adj[3],
-        //   e5: adj[4],
-        //   e6: adj[5],
-        //   fakename: this.name
-        // })
-        // .then(res => (console.log(res)))
-        // .catch(function (error) { // 请求失败处理
-        //   console.log(error);
-        // });
-        console.log('OK')
+        var this_ = this
+        this.$axios
+          .post('/evaluate/send', {
+            e1: this.adj[0],
+            e2: this.adj[1],
+            e3: this.adj[2],
+            e4: this.adj[3],
+            e5: this.adj[4],
+            e6: this.adj[5],
+            fakename: this.name
+          })
+          .then(function (res) {
+            this_.$store.commit('setModalHint',
+              { text: '评价已成功√' })
+            var t = setTimeout(function () {
+              this_.$router.push({ path: '/lead' })
+              clearTimeout(t)
+            }, 2000)
+          })
+          .catch(function (error) { // 请求失败处理
+            console.log(error)
+            this_.$store.commit('setModalHint',
+              { text: '出错啦！' })
+          })
       }
     }
   }
