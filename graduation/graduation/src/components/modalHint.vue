@@ -26,10 +26,11 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   top: 45%;
-  height: 4vh;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 4vw;
+  z-index: 999;
+  padding: 0.4vh 2vw;
 }
 </style>

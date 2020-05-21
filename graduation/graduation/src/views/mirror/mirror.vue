@@ -4,8 +4,13 @@
         <div v-if='isFirst'>
             <story :lines='lines'></story>
         </div>
-
-        <head-title :title='title' :tip='tip'></head-title>
+        <head-title :title='title' :tip='tip'>
+            <template v-slot:left>
+              <div class="arrow_wrap" @click="$router.push({ path: '/mainPage'})">
+                  <img src="../../assets/component/arrow.png" alt="">
+              </div>
+            </template>
+        </head-title>
         <transition name='overturn' mode='out-in'>
             <div v-if='seen' key='front' class='main'>
                 <div>
@@ -128,7 +133,7 @@ export default {
   }
   .onbtn {
     position: relative;
-    top: 10vh;
+    top: 10.5vh;
     z-index: 2;
   }
   /*反面*/

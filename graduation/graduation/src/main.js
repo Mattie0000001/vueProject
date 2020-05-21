@@ -5,7 +5,25 @@ import axios from 'axios'
 import store from './store'
 
 Vue.config.productionTip = false
-axios.defaults.baseURL = ''
+axios.defaults.baseURL = 'https://graduation2020.100steps.top/api'
+axios.defaults.withCredentials = true
+// axios拦截器
+axios.interceptors.response.use(
+  res => {
+    return res
+  },
+  err => {
+    if (err.response && err.response.status === 401) {
+      var thisurl = window.location.href
+      if (/\/#\/.*\?/.test(thisurl)) thisurl = thisurl + '&t=' + Math.random()
+      else thisurl = thisurl + '?t=' + Math.random()
+      var to = encodeURIComponent(thisurl)
+      // 模拟登录
+      window.location = `https://graduation2020.100steps.top/fake/1?redirect=${to}`
+    }
+    return Promise.reject(err)
+  }
+)
 Vue.prototype.$axios = axios
 new Vue({
   store,
