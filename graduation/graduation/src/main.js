@@ -7,7 +7,14 @@ import store from './store'
 Vue.config.productionTip = false
 axios.defaults.baseURL = 'https://graduation2020.100steps.top/api'
 axios.defaults.withCredentials = true
-// axios拦截器
+
+// axios请求拦截器
+axios.interceptors.request.use((config)=>{
+  this.$store.commit('setModalHint', { text: '获取数据'})
+  console.log(config)
+})
+
+// axios响应拦截器
 axios.interceptors.response.use(
   res => {
     return res
@@ -17,9 +24,10 @@ axios.interceptors.response.use(
       var thisurl = window.location.href
       if (/\/#\/.*\?/.test(thisurl)) thisurl = thisurl + '&t=' + Math.random()
       else thisurl = thisurl + '?t=' + Math.random()
-      var to = encodeURIComponent(thisurl)
+      // var to = encodeURIComponent(thisurl)
       // 模拟登录
-      window.location = `https://graduation2020.100steps.top/fake/1?redirect=${to}`
+      window.location = `https://graduation2020.100steps.top/auth/fake/1?redirect=${thisurl}`
+      // window.location = 'https://graduation2020.100steps.top/auth/fake/1'
     }
     return Promise.reject(err)
   }

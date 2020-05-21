@@ -98,7 +98,7 @@ export default {
       } else {
         var this_ = this
         this.$axios
-          .post('/evaluate/send', {
+          .put('/evaluate/create', {
             e1: this.adj[0],
             e2: this.adj[1],
             e3: this.adj[2],

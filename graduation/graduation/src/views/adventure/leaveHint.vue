@@ -43,10 +43,10 @@ export default {
   padding-left: 2vw;
 }
 .hintBtn {
-  width: 20.83vw;
+  width: 30vw;
   height: 4.53vh;
   font-size: 4.2vw;
-  border-radius: 15px;
+  border-radius: 5px;
   outline: none;
   background: white;
   box-shadow: none;
