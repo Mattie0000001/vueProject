@@ -51,17 +51,15 @@ export default {
         .put('/user/per_add', { // 上传性格
           personality: this_.personality
         })
-        .then((val) => {
-          return function () {
-            this_.increaseColor() // 上传增加色彩值
-            localStorage.setItem('personality', true)
-          }
-        })
-        .then((val) => {
-          return function () {
-            this_.$store.commit('setModalHint', { text: '探险完成，色彩值+10' })
-            this_.$router.push({ path: '/mirror' })
-          }
+        .then(
+          this_.$axios // 上传增加色彩值
+            .put('/color/incr', {
+              amount: 10
+            })
+        )
+        .then(function () {
+          this_.$store.commit('setModalHint', { text: '探险完成，色彩值+10' })
+          this_.$router.push({ path: '/mirror' })
         })
         .catch(function (err) {
           console.log(err)

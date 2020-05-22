@@ -9,10 +9,9 @@ axios.defaults.baseURL = 'https://graduation2020.100steps.top/api'
 axios.defaults.withCredentials = true
 
 // axios请求拦截器
-axios.interceptors.request.use((config)=>{
-  this.$store.commit('setModalHint', { text: '获取数据'})
-  console.log(config)
-})
+// axios.interceptors.request.use(function () {
+//   store.commit('setModalHint', { text: '获取数据' })
+// })
 
 // axios响应拦截器
 axios.interceptors.response.use(
@@ -27,7 +26,6 @@ axios.interceptors.response.use(
       // var to = encodeURIComponent(thisurl)
       // 模拟登录
       window.location = `https://graduation2020.100steps.top/auth/fake/1?redirect=${thisurl}`
-      // window.location = 'https://graduation2020.100steps.top/auth/fake/1'
     }
     return Promise.reject(err)
   }
