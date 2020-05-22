@@ -34,7 +34,7 @@ export default {
   height: 25vh;
   font-size: 4.2vw;
   border: 1px solid rgb(121, 121, 121);
-  border-radius: 15px;
+  border-radius: 10px;
   background: #ffffff;
   display: flex;
   flex-direction: column;

@@ -1,10 +1,7 @@
 <template>
     <div class='whole'>
         <!--前情回顾-->
-        <div v-if='isFirst'>
-            <story :lines='lines'></story>
-        </div>
-
+        <story :lines='lines' :planet='imgUrl'></story>
         <!--遮罩层-->
         <div class='lightbox' v-if='show' @click='show = false'>
             <div class='tips'>待定</div>
@@ -13,7 +10,7 @@
         </div>
 
         <div>
-            <div class='SunMoon' @click="$router.push({ path: '/' })">
+            <div class='SunMoon' @click="$router.push({ path: '/sunMoonStar' })">
                 <span class='name'>日月星球</span>
                 <img :src='knownUrl'>
             </div>
@@ -49,8 +46,8 @@ export default {
   components: { story },
   data () {
     return {
+      imgUrl: require('../../assets/storyline/planet.png'),
       isUnread: false,
-      isFirst: false,
       usrname: '',
       show: false,
       knownUrl: require('../../assets/mainpage/planet2.png'),
@@ -61,14 +58,13 @@ export default {
         '一场疫情<br>让这个世界失去了原有的色彩',
         '一张船票 带领梯仔<br>飞向神秘的宇宙<br>穿越无尽的星空',
         '这一次<br>梯仔能否找回消逝的色彩<br>让这个世界回到最初',
-        '点击继续...'
+        '这一次<br>梯仔能否找回消逝的色彩<br>让这个世界回到最初'
       ]
     }
   },
   methods: {
     toast: function () {
-      this.$store.commit('setModalHint',
-        { text: '嘘！这个星球还没有开放哦，明天再来看看吧' })
+      this.$store.commit('setModalHint', { text: '嘘！这个星球还没有开放哦，明天再来看看吧' })
     },
     uncomplete: function () {
       if (localStorage.getItem('') === null) {
@@ -119,7 +115,6 @@ export default {
     margin-bottom: 1.11vw;
     font-size: 4.2vw;
   }
-
   /**未读小红点 */
   .point {
     position: relative;
@@ -135,7 +130,6 @@ export default {
   .name {
     z-index: 1;
     position: relative;
-    left: 6vw;
   }
 
   .SunMoon {
@@ -147,7 +141,7 @@ export default {
   .SunMoon .name {
     top: 8.7vh;
   }
-  .SunMoon img {
+  #SunMoon img {
     width: 27.8vw;
     height: 27.8vw;
   }
@@ -194,17 +188,17 @@ export default {
     height: 27.8vw;
   }
 
-  .UnknownB {
+  #UnknownB {
     position: absolute;
     left: 28.9vw;
     top: 64vh;
   }
-  .UnknownB .name {
+  #UnknownB .name {
     top: 9.3vh;
     font-size: 11.1vw;
     color: rgb(231, 230, 230);
   }
-  .unknownB {
+  #unknownB {
     width: 25vw;
     height: 25vw;
   }

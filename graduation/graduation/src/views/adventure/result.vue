@@ -235,9 +235,6 @@ export default {
     justify-content: space-around;
     align-items: center;
   }
-  /* .words {
-    margin-top: 2vh;
-  } */
 
   .back {
     position: absolute;
@@ -246,7 +243,7 @@ export default {
     width: 42.22vw;
     height: 7.34vh;
     border: 1px solid rgb(121, 121, 121);
-    border-radius: 20px;
+    border-radius: 15px;
     text-align: center;
     line-height: 7.34vh;
   }

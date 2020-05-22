@@ -61,7 +61,6 @@ export default {
       console.log(canvas.width, canvas.height)
 
       var opts = {
-        // logging: true, // 日志开关，便于查看html2canvas的内部执行流程
         scale: 1,
         canvas: canvas,
         width: width,

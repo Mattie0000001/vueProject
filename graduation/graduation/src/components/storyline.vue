@@ -1,37 +1,17 @@
 <template>
     <div class='story' v-if='seen' @click='jump'>
-        <div>
-            <lines v-for='item in lines' :key='item.id' :infor='item'></lines>
+        <div class='movePart'>
+            <div class='linesBox'>
+                <lines v-for='item in lines' :key='item.id' :infor='item'></lines>
+            </div>
+            <button class='btn'>点击继续</button>
         </div>
+
         <div class='planet'>
             <img :src='planet'>
         </div>
     </div>
 </template>
-
-<style scoped>
-  /*文字样式*/
-  .story {
-    position: fixed;
-    top: -1vh;
-    left: -1vw;
-    z-index: 111;
-    background: rgb(255, 255, 255);
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-  }
-
-  /**星球 */
-  .planet {
-    position: fixed;
-    bottom: -5.3vh;
-    right: 0;
-  }
-  .planet img {
-    width: 100vw;
-  }
-</style>
 
 <script>
 import lines from './lines.vue'
@@ -40,15 +20,15 @@ export default {
   data () {
     return {
       isJump: false,
-      seen: true,
-      planet: require('../assets/storyline/planet.png')
+      seen: true
     }
   },
   components: {
     lines
   },
   props: {
-    lines: Array
+    lines: Array,
+    planet: String
   },
   methods: {
     change: function () {
@@ -68,3 +48,60 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  /*文字样式*/
+  .story {
+    position: fixed;
+    top: -1vh;
+    z-index: 111;
+    background: rgb(219, 216, 216);
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+  }
+  .movePart {
+    position: fixed;
+    height: 140vw;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .linesBox {
+    /* position: absolute;
+    bottom: 60vw;
+    left: 10vw; */
+    padding: 5vw;
+    margin: auto;
+    background: rgb(134, 131, 131);
+    color: #ffffff;
+    opacity: 0.5;
+    width: 80vw;
+    display: flex;
+    border-radius: 15px;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .btn {
+    position: relative;
+    /* top: 130vw; */
+    left: 35vw;
+    width: 30vw;
+    height: 10vw;
+    font-size: 4.2vw;
+    border-radius: 5px;
+    outline: none;
+    background: white;
+    border: 1px solid rgb(121, 121, 121);
+  }
+
+  /**星球 */
+  .planet {
+    position: fixed;
+    bottom: -5.3vh;
+    right: 0;
+    width: 100vw;
+  }
+</style>

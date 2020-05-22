@@ -7,14 +7,14 @@
       </template>
     </head-title>
     <div class="from_wrap">
-      From:一个暗恋你的人
+      From:{{evaluate.fakename}}
     </div>
     <div class="people_img">小人图片</div>
-    <div class="evaluate_wrap" id="e1"></div>
-    <div class="evaluate_wrap" id="e2"></div>
-    <div class="evaluate_wrap" id="e3"></div>
-    <div class="evaluate_wrap" id="e4"></div>
-    <div class="evaluate_wrap" id="e5"></div>
+    <div class="evaluate_wrap" id="e1">{{evaluate.e1}}</div>
+    <div class="evaluate_wrap" id="e2">{{evaluate.e2}}</div>
+    <div class="evaluate_wrap" id="e3">{{evaluate.e3}}</div>
+    <div class="evaluate_wrap" id="e4">{{evaluate.e4}}</div>
+    <div class="evaluate_wrap" id="e5">{{evaluate.e5}}</div>
   </div>
 </template>
 <script>
@@ -22,11 +22,30 @@ import headTitle from '../../components/headTitle.vue'
 export default {
   data () {
     return {
-      title: '魔镜：评价'
+      title: '魔镜：评价',
+      evaluate: {
+        e1: '帅',
+        e2: '帅',
+        e3: '帅',
+        e4: '帅',
+        e5: '帅',
+        fakename: '爱你'
+      }
     }
   },
   components: {
     headTitle
+  },
+  created () {
+    this.getEvaluate()
+  },
+  methods: {
+    getEvaluate () {
+      this.$axios.get(`/api/evaluate/rec/${this.$route.params.id}`)
+        .then(res => {
+          this.evaluate = res.data
+        })
+    }
   }
 }
 </script>

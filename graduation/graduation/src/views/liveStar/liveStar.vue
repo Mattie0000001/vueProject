@@ -4,14 +4,14 @@
       <template v-slot:middle>
         <div class="title_box">
           <div>居住星球</div>
-          <div class="pen_wrap" @click="isInputShow=true">
+          <div class="pen_wrap" @click="getName">
             <img src="../../assets/liveStar/pen.png" alt="">
           </div>
         </div>
       </template>
     </head-title>
     <div class="change_star_wrap">
-      <div class="change_btn" @click="test"></div>
+      <div class="change_btn"></div>
       <div class="change_btn"></div>
       <div class="change_btn"></div>
       <div class="change_btn"></div>
@@ -24,33 +24,43 @@
       <div class="star_wrap"></div>
     </div>
     <transition name="slide">
-      <div class="luck_note_wrap" v-show="isLuckNoteShow">
-        <div class="note_time">5月4日</div>
+      <div class="luck_note_wrap" v-show="getLuck">
+        <div class="note_time">{{luckNote.time}}</div>
         <div class="note_title">今日运势</div>
-        <div class="luck_type">中吉</div>
-        <div class="color_add">色彩值+10</div>
-        <div class="descrption">这里是今日运势文案</div>
+        <div class="luck_type">{{myLuckType}}</div>
+        <div class="color_add">色彩值+{{myGetColor}}</div>
+        <div class="descrption">{{luckNote.content}}</div>
         <button @click="isLuckNoteShow=false">好的</button>
       </div>
     </transition>
-    <div class="shade" v-show="isInputShow">
+    <div class="name_change_shade" v-show="isInputShow">
       <div class="input_win">
         <div class="input_title">更改名字</div>
-        <div class="row">
-          <div class="text">昵称：</div>
-          <input type="text" @blur="inputBlur">
-        </div>
-        <div class="row">
-          <div class="text">星球：</div>
-          <input type="text" @blur="inputBlur">
+       <div class="input_info">
+          <div class="row">
+            <div class="text">昵称：</div>
+            <input type="text" @blur="inputBlur" @input="inputNickName" v-model="nickName">
+          </div>
+          <div class="tip_text" v-show="isShowNameTip">
+            *昵称长度不能超过12个字符，且不能为空
+          </div>
+       </div>
+        <div class="input_info">
+          <div class="row">
+            <div class="text">星球：</div>
+            <input type="text" @blur="inputBlur" v-model="starName" @input="inputStarName">
+          </div>
+          <div class="tip_text" v-show="isShowStarTip">
+            *星球名长度不能超过12个字符，且不能为空
+          </div>
         </div>
         <div class="btn_wrap">
           <button @click="isInputShow=false">取消</button>
-          <button>确认</button>
+          <button @click="modify">确认</button>
         </div>
       </div>
     </div>
-    <letter-box :letterList="letterList"></letter-box>
+    <letter-box></letter-box>
     <color-box></color-box>
   </div>
 </template>
@@ -59,24 +69,38 @@ import headTitle from '../../components/headTitle.vue'
 import letterBox from '../liveStar/letterBox.vue'
 import colorBox from '../../components/colorBox.vue'
 export default {
+  name: 'liveStar',
   data () {
     return {
+      luckNote: {},
+      nickName: '',
+      starName: '',
+      isShowNameTip: false,
+      isShowStarTip: false,
       isLuckNoteShow: false,
       title: '居住星球',
       tip: '色彩值达到20解锁第一个皮肤，50，80，110，140，180分别解锁下一个(无需消耗色彩值)。还有记得每天来看看信箱的来信，点击地面上的小纸人有惊喜噢',
-      isInputShow: false,
-      letterList: [
-        {
-          img: '月亮',
-          time: '22:00',
-          content: '叮咚~你的回忆录已按时送达，请注意查收'
-        },
-        {
-          img: '魔镜',
-          time: '昨天',
-          content: '你收到了一份来自XXX的评价,现在查收'
-        }
-      ]
+      isInputShow: false
+    }
+  },
+  computed: {
+    myLuckType () {
+      if (parseInt(this.luckNote.luck) === 1) {
+        return '小吉'
+      } else if (parseInt(this.luckNote.luck) === 2) {
+        return '中吉'
+      } else {
+        return '大吉'
+      }
+    },
+    myGetColor () {
+      if (parseInt(this.luckNote.luck) === 1) {
+        return 5
+      } else if (parseInt(this.luckNote.luck) === 2) {
+        return 10
+      } else {
+        return 15
+      }
     }
   },
   components: {
@@ -85,8 +109,68 @@ export default {
     letterBox
   },
   methods: {
-    test () {
-      this.$store.commit('setModalHint', { text: '还没解锁呢' })
+    async getLuck () {
+      try {
+        if (localStorage.getItem('luck')) {
+          const res1 = await this.$axios.put('/api/user/daily')
+          this.luckNote = res1.data
+          const dt = new Date()
+          const m = (dt.getMonth() + 1 + '').padStart(2, '0')
+          const d = (dt.getDate() + 1 + '').padStart(2, '0')
+          this.luckNote.time = `${m}月${d}日`
+          await this.$axios.put('/api/color/incr', {
+            amout: this.myGetColor
+          })
+          localStorage.setItem('luck', JSON.stringify(this.luckNote))
+        } else {
+          this.luckNote = JSON.parse(localStorage.getItem('luck'))
+        }
+        this.isLuckNoteShow = true
+      } catch (err) {
+        console.log(err)
+        this.$store.commit('setModalHint', { text: '获取今日运势失败' })
+      }
+    },
+    getName () {
+      this.$axios.put('/api/user/get')
+        .then(res => {
+          this.nickName = res.data.nickName
+          this.starName = res.data.starName
+        })
+        .catch(err => {
+          console.log(err)
+          this.$store.commit('setModalHint', { text: '获取名称失败' })
+        })
+      this.isInputShow = true
+    },
+    modify () {
+      if (this.isShowNameTip || this.isShowStarTip) {
+        return null
+      }
+      this.$axios.put('/api/user/change')
+        .then(res => {
+          this.$store.commit('setModalHint', { text: '名字修改成功' })
+        })
+        .catch(err => {
+          console.log(err)
+          this.$store.commit('setModalHint', { text: '名字修改失败' })
+        })
+    },
+    inputNickName () {
+      if (/^(\w|[\u4e00-\u9fa5]){1,12}$/.test(this.nickName)) {
+        this.isShowNameTip = false
+        console.log('不显示')
+      } else {
+        this.isShowNameTip = true
+      }
+    },
+    inputStarName () {
+      if (/^(\w|[\u4e00-\u9fa5]){1,12}$/.test(this.starName)) {
+        this.isShowStarTip = false
+        console.log('不显示')
+      } else {
+        this.isShowStarTip = true
+      }
     },
     inputBlur () {
       setTimeout(() => {
@@ -110,8 +194,9 @@ export default {
   .pen_wrap {
     width: 6vw;
     height: 6vw;
+    margin-left: 1.5vw;
   }
-  .shade {
+  .name_change_shade {
     position: absolute;
     left: 0px;
     top: 0px;
@@ -124,15 +209,16 @@ export default {
     position: relative;
     background:#fff;
     width: 88%;
-    height: 45%;
+    height: 43%;
     border-radius: 5px;
-    margin: 30% auto;
+    margin: 35% auto;
     display: flex;
     align-items: center;
     flex-direction: column;
     border: 1px solid #797979;
     justify-content: space-around;
     font-size: 4vw;
+    padding: 4vh 0;
   }
   .row {
     display: flex;
@@ -147,8 +233,15 @@ export default {
   .input_title {
     font-weight: 550;
   }
+  .tip_text {
+    font-size: 3vw;
+    margin-top: 1vh;
+  }
+  .input_info {
+    height: 7vh;
+  }
   .text {
-    color:#878787;
+    color:#666;
   }
   .btn_wrap {
     display: flex;
@@ -212,16 +305,17 @@ export default {
     }
   }
   .luck_note_wrap {
+    width: 75vw;
     display: flex;
     flex-direction: column;
-    height: 45vh;
+    height: 50vh;
     position: absolute;
     top: 20vh;
     background-color: #fff;
     justify-content: space-around;
     align-items: center;
     padding: 4vh 5vw;
-    left: 27%;
+    left: 16vw;
     border: 1px solid #6e6d6d;
     font-size: 4vw;
   }

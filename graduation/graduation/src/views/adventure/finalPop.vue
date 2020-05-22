@@ -32,7 +32,7 @@ export default {
   height: 25vh;
   font-size: 4.2vw;
   border: 1px solid rgb(121, 121, 121);
-  border-radius: 15px;
+  border-radius: 10px;
   background: #ffffff;
   display: flex;
   flex-direction: column;
@@ -45,7 +45,7 @@ export default {
   width: 20.83vw;
   height: 4.53vh;
   font-size: 4.2vw;
-  border-radius: 15px;
+  border-radius: 5px;
   outline: none;
   background: white;
   box-shadow: none;

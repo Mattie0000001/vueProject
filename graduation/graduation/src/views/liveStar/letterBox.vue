@@ -1,35 +1,89 @@
 <template>
   <div>
     <div class="letter_box_wrap">
-      <div class="letter_box" @click="isShow=true">信箱</div>
+      <div class="letter_box" @click="getLetterList">信箱</div>
     </div>
-    <div class="shade" v-show="isShow">
+    <div class="letter_shade" v-show="$store.state.isShowModalLetter">
       <div class="letter_box_win">
         <div class="letter_title">
           信箱
         </div>
         <div class="letter_main">
-          <div class="letter_info_wrap" v-for="(item,index) in letterList" :key="index">
-            <div class="letter_time">{{item.time}}</div>
-            <div class="content_wrap">
-              <div class="letter_img">{{item.img}}</div>
-              <div class="letter_content">{{item.content}}</div>
-            </div>
-          </div>
+          <letter-item v-for="(item,index) in letterList" :key="index" :letter="item"></letter-item>
         </div>
         <div class="btn_wrap">
-          <button @click="isShow=false">关闭</button>
+          <button @click="$store.commit('setModalLetter',false)">关闭</button>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import letterItem from './letterItem.vue'
 export default {
-  props: ['letterList'],
+  components: {
+    letterItem
+  },
+  methods: {
+    getLetterList () {
+      this.$store.commit('setModalLetter', true)
+      this.$axios.get('/api/letter/get')
+        .then(res => {
+          this.letterList = res.data.letter
+        })
+        .catch(err => {
+          console.log(err)
+          this.$store.commit('setModalHint', { text: '信箱获取失败' })
+        })
+    }
+  },
   data () {
     return {
-      isShow: false
+      isShow: false,
+      letterList: [
+        // {
+        //   img: '月亮',
+        //   time: '22:00',
+        //   content: '叮咚~你的回忆录已按时送达，请注意查收',
+        //   type: 6
+        // },
+        // {
+        //   img: '魔镜',
+        //   time: '昨天',
+        //   content: '你收到了一份来自XXX的评价,现在查收',
+        //   type: 2
+        // },
+        // {
+        //   img: '月亮',
+        //   time: '22:00',
+        //   content: '叮咚~你的回忆录已按时送达，请注意查收',
+        //   type: 3
+        // },
+        // {
+        //   img: '月亮',
+        //   time: '22:00',
+        //   content: '叮咚~你的回忆录已按时送达，请注意查收',
+        //   type: 1
+        // },
+        // {
+        //   img: '月亮',
+        //   time: '22:00',
+        //   content: '叮咚~你的回忆录已按时送达，请注意查收',
+        //   type: 4
+        // },
+        // {
+        //   img: '月亮',
+        //   time: '22:00',
+        //   content: '叮咚~你的回忆录已按时送达，请注意查收',
+        //   type: 5
+        // },
+        // {
+        //   img: '月亮',
+        //   time: '22:00',
+        //   content: '叮咚~你的回忆录已按时送达，请注意查收',
+        //   type: 1
+        // }
+      ]
     }
   }
 }
@@ -45,7 +99,7 @@ export default {
     background-color: #e9e9e9;
     border: 1px solid #797979;
   }
-  .shade {
+  .letter_shade {
     position: absolute;
     left: 0px;
     top: 0px;
@@ -53,7 +107,6 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 99;
-    font-size: 4vw;
   }
   .letter_box_win {
     position: relative;
@@ -68,45 +121,14 @@ export default {
   }
   .letter_main {
     height: 60vh;
-    overflow: hidden;
+    overflow: scroll;
   }
   .letter_title {
-    font-size: 6vw;
-    font-weight: 550;
-    text-align: center;
-    padding: 2vh 0;
-  }
-  .letter_time {
-    margin: 0 auto;
-    background-color: #f2f2f2;
-    color: #333333;
-    font-size: 3.5vw;
-    width: 25vw;
-    height: 3.5vh;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .content_wrap {
-    padding: 2vh 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .letter_img {
-    border: 1px solid #333333;
-    border-radius: 50%;
-    width: 10vw;
-    height: 10vw;
-  }
-  .letter_content {
-    width: 65vw;
-    border: 1px solid #666;
-    border-radius: 14px;
-    margin-left: 2vw;
-    padding: 1vh 1vw;
-  }
+  font-size: 6vw;
+  font-weight: 550;
+  text-align: center;
+  padding: 2vh 0;
+ }
   .btn_wrap {
     height: 10vh;
     display: flex;

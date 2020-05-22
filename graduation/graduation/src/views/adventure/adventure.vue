@@ -148,12 +148,12 @@ export default {
   font-size: 4.2vw;
   width: 83.3vw;
   height: 7.5vh;
-  border-radius: 35px;
   line-height: 6.4vh;
   outline: none;
   background: white;
   box-shadow: none;
   border: 1px solid rgb(121, 121, 121);
+  border-radius: 35px;
 }
 .options:focus {
   background: #c3ffaf;

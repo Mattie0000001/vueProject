@@ -1,38 +1,44 @@
 <template>
-  <div>
+  <div ref="imageToFile">
     <head-title>
       <template v-slot:right>
         <div>
         </div>
       </template>
     </head-title>
-    <transition name="cover-slide">
-      <div class="memoirs_cover" :class="{'cover_slide':isShowCover}">
-        <div class="cover_main" @click="isShowCover=true">
-          <div class="cover_name">XXX</div>
-          <div class="cover_title">回忆录</div>
-        </div>
+    <div class="memoirs_cover" :class="{'cover_slide':isShowCover}">
+      <div class="cover_main" @click="isShowCover=true">
+        <div class="cover_name">XXX</div>
+        <div class="cover_title">回忆录</div>
       </div>
-    </transition>
+    </div>
+    <div class="image_shade" v-show="isShowImg">
+      <div class="image_wrap">
+        <img :src="getImg" alt="">
+      </div>
+    </div>
     <div class="memoirs_main">
-      <div class="memoirs_content">
-        <div class="momoirs_from">From:XXX</div>
+      <div class="memoirs_content" v-if="index < memoirs.length">
+        <div class="momoirs_from">From:{{memoirs[index].fakename}}</div>
         <div class="question_wrap">
-          <div class="ask_question">Q1：我们一起做过最疯狂的事？</div>
-          <div class="answer_question">吃饭、睡觉</div>
+          <div class="ask_question">Q1：{{memoirs[index].q1}}</div>
+          <div class="answer_question">{{memoirs[index].a1}}</div>
         </div>
         <div class="question_wrap">
-          <div class="ask_question">Q2：我们第一次相遇的地方？</div>
-          <div class="answer_question">吃饭、睡觉</div>
+          <div class="ask_question">Q2：{{memoirs[index].q2}}</div>
+          <div class="answer_question">{{memoirs[index].a2}}</div>
         </div>
         <div class="question_wrap">
-          <div class="ask_question">Q3：你对我印象最深的是什么</div>
-          <div class="answer_question">吃饭、睡觉</div>
+          <div class="ask_question">Q3：{{memoirs[index].q3}}</div>
+          <div class="answer_question">{{memoirs[index].a3}}</div>
         </div>
         <div class="question_wrap">
           <div class="ask_question">你还有什么想对我说的吗？</div>
-          <div class="answer_question">吃饭、睡觉</div>
+          <div class="answer_question">{{memoirs[index].words}}</div>
         </div>
+      </div>
+      <div class="memoirs_summary" v-else>
+        我一路沿着墨色浓重的小经前行<br>甚至都看到了月球的背面<br>只为追寻你，前往你身旁
       </div>
     </div>
     <transition name="turn-page">
@@ -43,11 +49,12 @@
       <div class="arrow_text">下一页</div>
     </div>
     <div class="btn_wrap">
-      <button>保存这页</button>
+      <button @click="toImage">保存这页</button>
     </div>
   </div>
 </template>
 <script>
+import html2canvas from 'html2canvas'
 import headTitle from '../../components/headTitle.vue'
 export default {
   components: {
@@ -55,16 +62,63 @@ export default {
   },
   data () {
     return {
+      getImg: '',
+      isShowImg: false,
+      memoirs: [
+        {
+          q1: '1',
+          q2: '2',
+          q3: '3',
+          a1: 'ha',
+          a2: '1ddd',
+          a3: '1iwod',
+          words: 'ss',
+          fakename: '你好'
+        },
+        {
+          q1: '1',
+          q2: '2',
+          q3: '3',
+          a1: 'ha',
+          a2: '1ddd',
+          a3: '1iwod',
+          words: 'ss',
+          fakename: '你好帅'
+        }
+      ],
       isShowCover: false,
-      isTurnPage: false
+      isTurnPage: false,
+      index: 0 // 页数标记
     }
   },
+  created () {
+    this.getMemoirs()
+  },
   methods: {
+    toImage () {
+      html2canvas(this.$refs.imageToFile)
+        .then((canvas) => {
+          const url = canvas.toDataURL('image/png')
+          this.getImg = url
+          this.isShowImg = true
+        })
+    },
     turnPage () {
+      if (this.index >= this.memoirs.length) {
+        this.$store.commit('setModalHint', { text: '这是最后一页了哦' })
+        return null
+      }
       this.isTurnPage = true
       setTimeout(() => {
         this.isTurnPage = false
       }, 200)
+      this.index += 1
+    },
+    getMemoirs () {
+      this.$axios.get('/api/memoirs/get')
+        .then(res => {
+          this.memoirs = res.data.memoirs
+        })
     }
   }
 }
@@ -76,13 +130,15 @@ export default {
 .turn-page-leave-to {
   transform: translateX(-90vw);
 }
-@keyframes cover_slide {
+/* @keyframes cover_slide {
   from {left:6vw}
   to {left:-84vw}
-}
+} */
 .cover_slide {
-  animation: cover_slide 3s;
-  animation-fill-mode: forwards;
+  /* animation: cover_slide 3s;
+  animation-fill-mode: forwards; */
+  transform: translateX(-90vw);
+  transition: all ease 2s;
 }
 .memoirs_cover {
   width: 90vw;
@@ -171,5 +227,18 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.image_shade {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background: rgba(0,0,0,0.1);
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+}
+.image_wrap {
+  width: 65vw;
+  margin: 30vw auto;
 }
 </style>
