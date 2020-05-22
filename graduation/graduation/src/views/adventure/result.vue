@@ -36,40 +36,37 @@ export default {
     }
   },
   methods: {
-    increaseColor: function () { // 色彩值+10
-      return this.$axios({
-        url: '/color/incr',
-        method: 'PUT',
-        data: {
-          amount: 10
-        }
-      })
-    },
     back: function () {
       var this_ = this
-      this.$axios
-        .put('/user/per_add', { // 上传性格
-          personality: this_.personality
-        })
-        .then(
-          this_.$axios // 上传增加色彩值
-            .put('/color/incr', {
-              amount: 10
-            })
-        )
-        .then(function () {
-          this_.$store.commit('setModalHint', { text: '探险完成，色彩值+10' })
-          this_.$router.push({ path: '/mirror' })
-        })
-        .catch(function (err) {
-          console.log(err)
-          this_.$store.commit('setModalHint', { text: '出错啦！' })
-          this_.$router.push({ path: '/mirror' })
-        })
+      if (!localStorage.getItem('personality')) {
+        this_.$axios
+          .put('/user/per_add', { // 上传性格
+            personality: this_.personality
+          })
+          .then(function () {
+            this_.$axios // 上传增加色彩值
+              .put('/color/incr', {
+                amount: 10
+              }) // 上传增加色彩值
+            localStorage.setItem('personality', true)
+          })
+          .then(function () {
+            this_.$store.commit('setModalHint', { text: '探险完成，色彩值+10' })
+            this_.$router.push({ path: '/mirror' })
+          })
+          .catch(function (err) {
+            console.log(err)
+            this_.$store.commit('setModalHint', { text: '出错啦！' })
+            this_.$router.push({ path: '/mirror' })
+          })
+      } else {
+        this_.$router.push({ path: '/mirror' })
+      }
     },
     setPersonality: function () {
       // 头衔+第一个性格结果
       var random = Math.floor(Math.random() * 4)
+      this.personality += random * 10000 // 万位是personality，想不到吧
       var firstItem =
         (this.$route.query.line === 'A') ? sessionStorage.getItem('seven')
           : sessionStorage.getItem('nine')
@@ -119,24 +116,26 @@ export default {
         this.fourth = '你为人较为谨慎，可能会有点小内向，略为抗拒尝试新事物'
         this.personality += 2000 // personality千位为2
       }
-
-      console.log(this.personality)
     },
     getPersonality: function (num) { // 根据数字确定测试结果
-      var a = num % 1000 // 个位
-      var b = (num / 10) % 100 // 十位
-      var c = (num / 100) % 10 // 百位
-      var d = num / 1000 // 千位
+      var a = num % 10 // 个位
+      var b = Math.floor((num / 10) % 10) // 十位
+      var c = Math.floor((num / 100) % 10) // 百位
+      var d = Math.floor((num / 1000) % 10) // 千位
+      var e = Math.floor(num / 10000)
 
       switch (a) {
         case 1 :
           this.first = '你的性格较为安静沉稳从，热爱大自然。你喜欢独处，享受属于自己的空间'
+          this.title = this.titleOne[e]
           break
         case 2 :
           this.first = '你还是个不折不扣的小吃货'
+          this.title = this.titleTwo[e]
           break
         case 3 :
           this.first = '你热爱学习，具有科研精神，心思细腻'
+          this.title = this.titleThree[e]
           break
       }
 
@@ -174,7 +173,9 @@ export default {
       // 已经测试过，请求获得性格
       this.$axios
         .get('/user/per_get')
-        .then((data) => this_.getPersonality(data.personality))
+        .then(
+          (data) => this_.getPersonality(data.data.personality)
+        )
         .catch((err) => {
           console.log(err)
           this_.$store.commit('setModalHint',

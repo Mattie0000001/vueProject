@@ -39,12 +39,12 @@
 
         <!--离开提示框-->
         <div v-if='isLeave'>
-            <leave-pop v-on:hide='hide'></leave-pop>
+            <leave-pop @hide='hide'></leave-pop>
         </div>
 
         <!--退出提示框-->
         <div v-if='isExit'>
-            <exit-pop :hint='hint'></exit-pop>
+            <exit-pop :hint='hint' @again='again'></exit-pop>
         </div>
 
         <!--终点提示框-->
@@ -154,6 +154,10 @@ export default {
     },
     hide: function () {
       this.isLeave = false
+    },
+    again: function () {
+      this.isExit = false
+      this.$router.push({ path: '/adventure' })
     },
     gotoFinal: function () {
       this.$router.push({ path: '/result', query: { line: 'A' } })

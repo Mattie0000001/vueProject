@@ -32,12 +32,12 @@
 
         <!--离开提示框-->
         <div v-if='isLeave'>
-            <leave-pop v-on:hide='hide'></leave-pop>
+            <leave-pop @hide='hide'></leave-pop>
         </div>
 
         <!--退出提示框-->
         <div v-if='isExit'>
-            <exit-pop :hint='hint'></exit-pop>
+            <exit-pop :hint='hint' @again='again'></exit-pop>
         </div>
     </div>
 </template>
@@ -113,6 +113,10 @@ export default {
     },
     hide: function () {
       this.isLeave = false
+    },
+    again: function () {
+      this.isExit = false
+      this.now = 1
     }
   }
 }

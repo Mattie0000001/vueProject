@@ -41,7 +41,7 @@
 
         <!--性格测评已完成提示-->
         <div v-if='isAgain'>
-            <hint-pop></hint-pop>
+            <hint-pop @hide='hide'></hint-pop>
         </div>
     </div>
 </template>
@@ -89,6 +89,9 @@ export default {
       } else {
         this.$router.push({ path: '/adventure' })
       }
+    },
+    hide: function () {
+      this.isAgain = false
     }
   }
 }

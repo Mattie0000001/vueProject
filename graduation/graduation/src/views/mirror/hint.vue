@@ -1,8 +1,9 @@
 <template>
     <div>
         <div class='hintBox'>
+            <p class='exit' click="$emit('hide')">x</p>
             <p>您已成功完成探险</p>
-            <button class='hintBtn' @click="$router.push({ path: '/adventure' })">
+            <button class='hintBtn' @click='again'>
                 再次开启旅程
             </button>
             <button class='hintBtn' @click="$router.push({ path: '/result' })">
@@ -14,7 +15,14 @@
 
 <script>
 export default {
-  name: 'hint-pop'
+  name: 'hint-pop',
+  props: ['hide'],
+  methods: {
+    again: function () {
+      localStorage.removeItem('personality')
+      this.$router.push({ path: '/adventure' })
+    }
+  }
 }
 </script>
 
@@ -22,8 +30,8 @@ export default {
 .hintBox {
   position: fixed;
   top: 39.06vh;
-  left: 8.33vw;
-  width: 83.3vw;
+  left: 13vw;
+  width: 75vw;
   height: 25vh;
   font-size: 4.2vw;
   border: 1px solid rgb(121, 121, 121);
@@ -36,7 +44,7 @@ export default {
   padding-left: 2vw;
 }
 .hintBtn {
-  width: 20.83vw;
+  width: 30vw;
   height: 4.53vh;
   font-size: 4.2vw;
   border-radius: 15px;
@@ -44,5 +52,10 @@ export default {
   background: white;
   box-shadow: none;
   border: 1px solid rgb(121, 121, 121);
+}
+.exit {
+  position: relative;
+  top: -4vw;
+  left: 33vw;
 }
 </style>

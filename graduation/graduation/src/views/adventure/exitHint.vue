@@ -3,7 +3,10 @@
         <div class='hintBox'>
             <p>{{hint}}</p>
             <button class='hintBtn' @click="$router.push({path:'/mirror'})">
-                返回
+                返回星球
+            </button>
+            <button class='hintBtn' @click="$emit('again')">
+                重新开始
             </button>
         </div>
     </div>
@@ -12,7 +15,7 @@
 <script>
 export default {
   name: 'hint-pop',
-  props: ['hint', 'isExit']
+  props: ['hint', 'again']
 }
 </script>
 
@@ -32,7 +35,7 @@ export default {
   height: 19.06vh;
   font-size: 4.2vw;
   border: 1px solid rgb(121, 121, 121);
-  border-radius: 15px;
+  border-radius: 5px;
   background: #ffffff;
   display: flex;
   flex-direction: column;
@@ -44,7 +47,7 @@ export default {
   width: 20.83vw;
   height: 4.53vh;
   font-size: 4.2vw;
-  border-radius: 15px;
+  border-radius: 5px;
   outline: none;
   background: white;
   box-shadow: none;
