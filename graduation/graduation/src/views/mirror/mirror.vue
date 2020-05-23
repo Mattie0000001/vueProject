@@ -15,7 +15,7 @@
             <div v-if='seen' key='front' class='main'>
                 <div>
                     <p class='onmirror'>
-                        开启属于你的未知旅程...</p>
+                        开启属于你的<br>未知旅程</p>
                     <img :src='mirrorF' class='mirror'  @click='gotoAdventure'>
                 </div>
                 <div @click='seen = !seen'>
@@ -24,20 +24,24 @@
                 </div>
             </div>
             <div v-else key='back' class='main'>
-                <div>
-                    <span class='titleBack'>朋友眼中的你</span>
-                    <span class='change'>换一个</span>
+                <div class='you'>
+                    <div class='titleBack'>朋友眼中的你</div>
+                    <div>
+                        <img :src='person' @click='changeGender' class='person'>
+                    </div>
+                    <button class='personBtn' @click="$router.push({ path: '/share'})">
+                        点击进入
+                    </button>
                 </div>
-                <img :src='person' class='person'
-                 @click="$router.push({ path: '/share'})">
-                <p class='onperson'>点击进入</p>
                 <div @click='seen = !seen'>
                     <p class='onbtn'>转</p>
                     <img :src='btn' class='btn'>
                 </div>
             </div>
         </transition>
-        <color-box></color-box>
+        <div class='footer'>
+            <color-box></color-box>
+        </div>
 
         <!--性格测评已完成提示-->
         <div v-if='isAgain'>
@@ -92,6 +96,9 @@ export default {
     },
     hide: function () {
       this.isAgain = false
+    },
+    changeGender: function () {
+      // 换图片url
     }
   }
 }
@@ -104,13 +111,13 @@ export default {
     height: 100vh;
     white-space: pre-wrap;
     margin: 0;
+    background: rgb(31, 28, 46);
   }
   .main {
     width: 83.33vw;
-    height: 70vh;
+    height: 80vh;
     font-size: 4.17vw;
-    border: 1px solid black;
-    margin: 3vh auto;
+    margin: 3vh auto 0;
     perspective: 800px;
     -webkit-perspective: 800px;
     overflow: hidden;
@@ -124,25 +131,46 @@ export default {
     height: 44.67vh;
   }
   .btn {
-    position: relative;
-    top: 5vh;
+    position: absolute;
+    top: 112vw;
+    left: 35vw;
     width: 14.44vw;
     height: 14.44vw;
+    z-index: 28
   }
   .onmirror {
     position: relative;
-    top: 38vh;
+    top: 55vw;
     z-index: 2;
+    line-height: 7vw;
+    color: rgb(238, 236, 102);
   }
   .onbtn {
-    position: relative;
-    top: 10.5vh;
-    z-index: 2;
+    position: absolute;
+    top: 117vw;
+    left: 40vw;
+    z-index: 30;
+  }
+  .footer {
+    z-index: 1;
   }
   /*反面*/
-  .onperson {
-    position: relative;
-    top: -5vh;
+  .you {
+    border-radius: 15px;
+    width: 76vw;
+    height: 105vw;
+    margin-left: 5vw;
+    background: #763e7e;
+  }
+  .personBtn {
+    width: 25vw;
+    height: 4.53vh;
+    font-size: 4.2vw;
+    border-radius: 5px;
+    border: 1px solid rgb(238, 236, 102);
+    color: rgb(238, 236, 102);
+    outline: none;
+    background: none;
   }
   .person {
     position: relative;
@@ -157,6 +185,7 @@ export default {
   .titleBack {
     line-height: 15vw;
     font-size: 5vw;
+    color: white;
   }
 
   /*翻转动画*/

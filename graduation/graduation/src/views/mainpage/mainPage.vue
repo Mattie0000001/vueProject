@@ -1,7 +1,9 @@
 <template>
     <div class='whole'>
         <!--前情回顾-->
-        <story :lines='lines' :planet='imgUrl'></story>
+        <div v-if='isFirst'>
+            <story :lines='lines' :planet='imgUrl'></story>
+        </div>
         <!--遮罩层-->
         <div class='lightbox' v-if='show' @click='show = false'>
             <div class='tips'>待定</div>
@@ -46,6 +48,7 @@ export default {
   components: { story },
   data () {
     return {
+      isFirst: false,
       imgUrl: require('../../assets/storyline/planet.png'),
       isUnread: false,
       usrname: '',
@@ -130,6 +133,7 @@ export default {
   .name {
     z-index: 1;
     position: relative;
+    left: 5vw;
   }
 
   .SunMoon {
@@ -188,17 +192,17 @@ export default {
     height: 27.8vw;
   }
 
-  #UnknownB {
+  .UnknownB {
     position: absolute;
     left: 28.9vw;
     top: 64vh;
   }
-  #UnknownB .name {
+  .UnknownB .name {
     top: 9.3vh;
     font-size: 11.1vw;
     color: rgb(231, 230, 230);
   }
-  #unknownB {
+  .unknownB {
     width: 25vw;
     height: 25vw;
   }

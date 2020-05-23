@@ -2,19 +2,18 @@
     <div>
         <img src='../../assets/mirror/share.png' class='share'
          @click="$router.push({path:'/share'})">
+        <div class='main'>
+            <div>
+                <img src='../../assets/mirror/planet.png' class='planet'>
+            </div>
 
-        <div class='firstPart'>
-            <img src='../../assets/mirror/planet.png' class='planet'>
-            <p class='title'>{{title}}</p>
-            <p class='first'>{{first}}</p>
-        </div>
+            <div class='title'>{{title}}</div>
 
-        <div class='secondPart'>
+            <p class='words'>{{first}}</p>
             <p class='words'>{{second}}</p>
             <p class='words'>{{third}}</p>
             <p class='words'>{{fourth}}</p>
         </div>
-
         <div class='back' @click='back'>返回星球</div>
     </div>
 </template>
@@ -27,11 +26,11 @@ export default {
       titleOne: ['林深故人', '浮生居士', '青袍道长', '蓬莱仙使'],
       titleTwo: ['老佛爷宝藏茶', '芝芝桃桃', '抹茶可可星冰乐', '大红袍寒冰牛乳茶'],
       titleThree: ['疯狂科学家', '秃头程序员', '时间管理大师', '霍格沃茨学士'],
-      title: '',
-      first: '',
-      second: '',
-      third: '',
-      fourth: '',
+      title: '11111',
+      first: '22222',
+      second: '33333',
+      third: '444444',
+      fourth: '555555',
       personality: 0
     }
   },
@@ -189,6 +188,20 @@ export default {
 </script>
 
 <style scoped>
+  .main {
+    position: relative;
+    top: 30vw;
+    margin-left: 10vw;
+    height: 120vw;
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(202, 199, 199, 0.5);
+    border-radius: 15px;
+  }
+
   .share {
     position: absolute;
     right: 1.56vw;
@@ -197,54 +210,34 @@ export default {
     height: 7.78vw;
   }
 
-  /**第一部分 */
   .planet {
-    position: absolute;
-    left: 9.17vw;
-    top: 11.09vh;
+    position: relative;
+    top: 3vw;
+    margin: auto;
     width: 33.33vw;
     height: 33.33vw;
   }
+
   .title {
-    position: absolute;
-    left: 45.28vw;
-    top: 12.5vh;
-    width: 35.56vw;
+    width: 40vw;
     height: 5.31vh;
     border: 1px solid rgb(121, 121, 121);
     border-radius: 10px;
     text-align: center;
     line-height: 5.31vh;
   }
-  .first {
-    position: absolute;
-    left: 46.28vw;
-    top: 22.5vh;
-    height: 7.5vh;
-  }
-
-  /**第二部分 */
-  .secondPart {
-    position: absolute;
-    top: 33vh;
-    left: 12.2vw;
-    width: 81.8vw;
-    height: 40vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-  }
 
   .back {
     position: absolute;
     left: 28.89vw;
-    top: 79.38vh;
-    width: 42.22vw;
-    height: 7.34vh;
-    border: 1px solid rgb(121, 121, 121);
-    border-radius: 15px;
+    top: 160vw;
+    width: 35vw;
+    height: 10vw;
+    border: 1px solid rgb(248, 246, 106);
+    color: rgb(233, 230, 82);
+    background: none;
+    border-radius: 5px;
     text-align: center;
-    line-height: 7.34vh;
+    line-height: 10vw;
   }
 </style>

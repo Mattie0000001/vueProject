@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class='whole'>
         <div class='hintBox'>
-            <p class='exit' click="$emit('hide')">x</p>
-            <p>您已成功完成探险</p>
+            <img src='../../assets/mirror/back.png' class='exit' @click="$emit('hide')">
+            <p class='big'>您已成功完成探险</p>
             <button class='hintBtn' @click='again'>
                 再次开启旅程
             </button>
@@ -40,14 +40,19 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   padding-left: 2vw;
+}
+.big {
+  font-size: 5vw;
+  position: relative;
+  top: -2vw;
 }
 .hintBtn {
   width: 30vw;
   height: 4.53vh;
   font-size: 4.2vw;
-  border-radius: 15px;
+  border-radius: 5px;
   outline: none;
   background: white;
   box-shadow: none;
@@ -55,7 +60,9 @@ export default {
 }
 .exit {
   position: relative;
-  top: -4vw;
+  top: -1vw;
   left: 33vw;
+  width: 5vw;
+  height: 5vw;
 }
 </style>

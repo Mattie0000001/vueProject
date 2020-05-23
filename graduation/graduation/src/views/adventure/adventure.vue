@@ -1,45 +1,45 @@
 <template>
-    <div class='adventure'>
-        <img :src='backImg' class='back' @click='isLeave = true'>
+  <div class='adventure'>
+    <img :src='backImg' class='back' @click='isLeave = true'>
 
-        <div v-if='now===1' class='test'>
-            <div class='title'>{{firstTitle}}</div>
-            <button class='options' @click='choose'
-             v-for='item in first' :key='item.name' :id='item.name'>
-                {{item.text}}
-            </button>
-        </div>
-        <div v-if='now===2' class='test'>
-            <div class='title'>{{secondTitle}}</div>
-            <button class='options' @click='choose'
-             v-for='item in second' :key='item.name' :id='item.name'>
-                {{item.text}}
-            </button>
-        </div>
-        <div v-if='now===3' class='test'>
-            <div class='title'>{{thirdTitle}}</div>
-            <button class='options' @click='choose'
-             v-for='item in third' :key='item.name' :id='item.name'>
-                {{item.text}}
-            </button>
-        </div>
-
-        <!--下一步-->
-        <div v-show='isOK' @click='gotoNext' class='next'>
-            <span class="nextWord">下一步</span>
-            <img class='nextImg' src="../../assets/mirror/next.png">
-        </div>
-
-        <!--离开提示框-->
-        <div v-if='isLeave'>
-            <leave-pop @hide='hide'></leave-pop>
-        </div>
-
-        <!--退出提示框-->
-        <div v-if='isExit'>
-            <exit-pop :hint='hint' @again='again'></exit-pop>
-        </div>
+    <div v-if='now===1' class='test'>
+      <div class='title'>{{firstTitle}}</div>
+        <button class='options' @click='choose'
+          v-for='item in first' :key='item.name' :id='item.name'>
+          {{item.text}}
+        </button>
     </div>
+    <div v-if='now===2' class='test'>
+      <div class='title'>{{secondTitle}}</div>
+      <button class='options' @click='choose'
+        v-for='item in second' :key='item.name' :id='item.name'>
+        {{item.text}}
+      </button>
+    </div>
+    <div v-if='now===3' class='test'>
+      <div class='title'>{{thirdTitle}}</div>
+      <button class='options' @click='choose'
+        v-for='item in third' :key='item.name' :id='item.name'>
+        {{item.text}}
+      </button>
+    </div>
+
+    <!--下一步-->
+    <div v-show='isOK' @click='gotoNext' class='next'>
+      <span class="nextWord">下一步</span>
+      <img class='nextImg' src="../../assets/mirror/next.png">
+    </div>
+
+    <!--离开提示框-->
+    <div v-if='isLeave'>
+      <leave-pop @hide='hide'></leave-pop>
+    </div>
+
+    <!--退出提示框-->
+    <div v-if='isExit'>
+      <exit-pop :hint='hint' @again='again'></exit-pop>
+    </div>
+  </div>
 </template>
 
 <script>
