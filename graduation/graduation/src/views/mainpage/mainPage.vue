@@ -23,7 +23,7 @@
             </div>
 
             <div class='Habitat' @click="$router.push({ path: '/liveStar' })">
-                <div class='point' v-if='isUnread'></div>
+                <div class='point' v-if='$store.state.isHasMsg'></div>
                 <span class='name'>{{usrname}}居住星球<br>(居住星球)</span>
                 <img :src='knownUrl'>
             </div>
@@ -88,7 +88,7 @@ export default {
       .get('/user/status_get')
       .then((data) => {
         if (data.status) { // 有新消息
-          this.isUnread = true
+          this.$store.commit('setIsHasMsg', true)
         }
       })
   }

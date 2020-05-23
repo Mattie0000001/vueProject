@@ -1,53 +1,64 @@
 <template>
-    <div class='adventure'>
-        <img src='../../assets/mirror/back.png' class='back' @click='isLeave = true'>
+  <div class='adventure'>
+    <head-title :title='title' :tip='tip'>
+      <template v-slot:left>
+        <div class='arrow_wrap' @click='isLeave = true'>
+          <img src='../../assets/component/arrow.png' alt=''>
+        </div>
+      </template>
+      <template v-slot:middle></template>
+    </head-title>
 
-        <div v-if='now===8' class='test'>
-            <div class='title'>{{eighthTitle}}</div>
-            <button class='options' @click='choose'
-             v-for='item in eighth' :key='item.name' :id='item.name'>
-                {{item.text}}
-            </button>
-        </div>
-        <div v-if='now===9' class='test'>
-            <div class='title'>{{ninthTitle}}</div>
-            <button class='options' @click='choose'
-             v-for='item in ninth' :key='item.name' :id='item.name'>
-                {{item.text}}
-            </button>
-        </div>
+    <div class='testBox'>
+      <div v-if='now === 8' class='test'>
+        <div class='title'>{{eighthTitle}}</div>
+        <button class='options' @click='choose'
+          v-for='item in eighth' :key='item.name' :id='item.name'>
+          {{item.text}}
+        </button>
+      </div>
 
-        <!--下一步-->
-        <div v-show='isOK' @click='gotoNext' class='next'>
-            <span class="nextWord">下一步</span>
-            <img class='nextImg' src='../../assets/mirror/next.png'>
-        </div>
+      <div v-if='now === 9' class='test'>
+        <div class='title'>{{ninthTitle}}</div>
+        <button class='options' @click='choose'
+          v-for='item in ninth' :key='item.name' :id='item.name'>
+          {{item.text}}
+        </button>
+      </div>
 
-        <!--离开提示框-->
-        <div v-if='isLeave'>
-            <leave-pop @hide='hide'></leave-pop>
-        </div>
-
-        <!--退出提示框-->
-        <div v-if='isExit'>
-            <exit-pop :hint='hint' @agian='again'></exit-pop>
-        </div>
-
-        <!--终点提示框-->
-        <div v-if='final'>
-            <final-pop @gotoFinal='gotoFinal'></final-pop>
-        </div>
+      <!--下一步-->
+      <div v-show='isOK' @click='gotoNext' class='next'>下一步</div>
     </div>
+
+    <!--离开提示框-->
+    <div v-if='isLeave'>
+      <leave-pop @hide='hide'></leave-pop>
+    </div>
+
+    <!--退出提示框-->
+    <div v-if='isExit'>
+      <exit-pop :hint='hint' @again='again'></exit-pop>
+    </div>
+
+    <!--终点提示框-->
+    <div v-if='final'>
+      <final-pop @gotoFinal='gotoFinal'></final-pop>
+    </div>
+
+    <color-box></color-box>
+  </div>
 </template>
 
 <script>
 import leavePop from './leaveHint.vue'
 import exitPop from './exitHint.vue'
 import finalPop from './finalPop.vue'
+import headTitle from '../../components/headTitle.vue'
+import colorBox from '../../components/colorBox.vue'
 export default {
   name: 'adventure',
   components: {
-    leavePop, exitPop, finalPop
+    leavePop, exitPop, finalPop, headTitle, colorBox
   },
   data () {
     return {
@@ -66,7 +77,7 @@ export default {
         { name: 'continue', text: '绕开黑洞继续前行' }
       ],
       ninth: [
-        { name: 'forest', text: '布满森林、郁郁葱葱的星球，令人神清气爽' },
+        { name: 'forest', text: '布满森林、郁郁葱葱的星球' },
         { name: 'sweet', text: '到处都是糖果屋和奶茶店的星球' },
         { name: 'book', text: '一片书海的星球' }
       ]
@@ -108,56 +119,66 @@ export default {
 </script>
 
 <style scoped>
-.back {
-  position: fixed;
-  top: 1vh;
-  left: 1vh;
-  width: 6.11vw;
-  height: 6.11vw;
+.adventure {
+  width: 100vw;
+  height: 100vh;
+  background: rgb(31, 28, 46);
 }
-.test {
-  position: absolute;
-  left: 8.33vw;
+
+.testBox {
+  position: relative;
+  top: 10vw;
   width: 83.3vw;
-  height: 80vh;
+  height: 120vw;
+  background: rgba(201, 196, 196, 0.5);
+  border-radius: 15px;
   margin: auto;
+}
+
+.test {
+  margin-left: 6.5vw;
+  position: relative;
+  top: 8vw;
+  height: 80vw;
+  width: 70vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
+
 .title {
   font-size: 5vw;
+  color: #ffffff;
 }
 .options {
   text-align: center;
   font-size: 4.2vw;
-  width: 83.3vw;
+  width: 70vw;
   height: 7.5vh;
-  border-radius: 35px;
   line-height: 6.4vh;
   outline: none;
   background: white;
   box-shadow: none;
   border: 1px solid rgb(121, 121, 121);
+  border-radius: 35px;
 }
 .options:focus {
-  background: #c3ffaf;
+  background: #3e4050;
+  color: #ffffff;
 }
 .next {
-  position: fixed;
-  bottom: 17vh;
-  left: 35vw;
-  height: 8.33vw;
-}
-.nextWord {
-  font-size: 5.55vw;
-  line-height: 8.33vw;
   position: relative;
-  top: -1vh;
-}
-.nextImg {
-  width: 8.33vw;
+  top: 21vw;
+  left: 32vw;
   height: 8.33vw;
+  width: 23vw;
+  font-size: 4.5vw;
+  line-height: 8.33vw;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+  background: rgb(27, 39, 61);
+  color: #ffffff;
 }
 </style>

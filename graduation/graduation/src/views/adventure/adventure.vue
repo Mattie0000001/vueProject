@@ -1,34 +1,41 @@
 <template>
   <div class='adventure'>
-    
-    <img :src='backImg' class='back' @click='isLeave = true'>
+    <head-title :title='title' :tip='tip'>
+      <template v-slot:left>
+        <div class='arrow_wrap' @click='isLeave = true'>
+          <img src='../../assets/component/arrow.png' alt=''>
+        </div>
+      </template>
+      <template v-slot:middle></template>
+    </head-title>
 
-    <div v-if='now===1' class='test'>
-      <div class='title'>{{firstTitle}}</div>
+    <div class='testBox'>
+      <div v-if='now===1' class='test'>
+        <div class='title'>{{firstTitle}}</div>
         <button class='options' @click='choose'
           v-for='item in first' :key='item.name' :id='item.name'>
           {{item.text}}
         </button>
-    </div>
-    <div v-if='now===2' class='test'>
-      <div class='title'>{{secondTitle}}</div>
-      <button class='options' @click='choose'
-        v-for='item in second' :key='item.name' :id='item.name'>
-        {{item.text}}
-      </button>
-    </div>
-    <div v-if='now===3' class='test'>
-      <div class='title'>{{thirdTitle}}</div>
-      <button class='options' @click='choose'
-        v-for='item in third' :key='item.name' :id='item.name'>
-        {{item.text}}
-      </button>
-    </div>
+      </div>
 
-    <!--下一步-->
-    <div v-show='isOK' @click='gotoNext' class='next'>
-      <span class="nextWord">下一步</span>
-      <img class='nextImg' src="../../assets/mirror/next.png">
+      <div v-if='now===2' class='test'>
+        <div class='title'>{{secondTitle}}</div>
+        <button class='options' @click='choose'
+          v-for='item in second' :key='item.name' :id='item.name'>
+          {{item.text}}
+        </button>
+      </div>
+
+      <div v-if='now===3' class='test'>
+        <div class='title'>{{thirdTitle}}</div>
+        <button class='options' @click='choose'
+          v-for='item in third' :key='item.name' :id='item.name'>
+          {{item.text}}
+        </button>
+      </div>
+
+      <!--下一步-->
+      <div v-show='isOK' @click='gotoNext' class='next'>下一步</div>
     </div>
 
     <!--离开提示框-->
@@ -40,21 +47,24 @@
     <div v-if='isExit'>
       <exit-pop :hint='hint' @again='again'></exit-pop>
     </div>
+
+    <color-box></color-box>
   </div>
 </template>
 
 <script>
+import headTitle from '../../components/headTitle.vue'
 import leavePop from './leaveHint.vue'
 import exitPop from './exitHint.vue'
+import colorBox from '../../components/colorBox.vue'
 export default {
   name: 'adventure',
   components: {
-    leavePop, exitPop
+    leavePop, exitPop, headTitle, colorBox
   },
   data () {
     return {
       isOK: false,
-      backImg: require('../../assets/mirror/back.png'),
       isLeave: false,
       isExit: false,
       hint: 'none',
@@ -123,31 +133,42 @@ export default {
 }
 </script>
 <style scoped>
-.back {
-  position: fixed;
-  top: 1vh;
-  left: 1vh;
-  width: 6.11vw;
-  height: 6.11vw;
+.adventure {
+  width: 100vw;
+  height: 100vh;
+  background: rgb(31, 28, 46);
 }
-.test {
-  position: absolute;
-  left: 8.33vw;
+
+.testBox {
+  position: relative;
+  top: 10vw;
   width: 83.3vw;
-  height: 80vh;
+  height: 120vw;
+  background: rgba(201, 196, 196, 0.5);
+  border-radius: 15px;
   margin: auto;
+}
+
+.test {
+  margin-left: 6.5vw;
+  position: relative;
+  top: 8vw;
+  height: 80vw;
+  width: 70vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
+
 .title {
   font-size: 5vw;
+  color: #ffffff;
 }
 .options {
   text-align: center;
   font-size: 4.2vw;
-  width: 83.3vw;
+  width: 70vw;
   height: 7.5vh;
   line-height: 6.4vh;
   outline: none;
@@ -157,22 +178,21 @@ export default {
   border-radius: 35px;
 }
 .options:focus {
-  background: #c3ffaf;
+  background: #3e4050;
+  color: #ffffff;
 }
 .next {
-  position: fixed;
-  bottom: 17vh;
-  left: 35vw;
-  height: 8.33vw;
-}
-.nextWord {
-  font-size: 5.55vw;
-  line-height: 8.33vw;
   position: relative;
-  top: -1vh;
-}
-.nextImg {
-  width: 8.33vw;
+  top: 21vw;
+  left: 32vw;
   height: 8.33vw;
+  width: 23vw;
+  font-size: 4.5vw;
+  line-height: 8.33vw;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+  background: rgb(27, 39, 61);
+  color: #ffffff;
 }
 </style>

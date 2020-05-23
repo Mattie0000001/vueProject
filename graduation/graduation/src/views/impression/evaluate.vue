@@ -10,10 +10,6 @@
             {{adj[index]}}
         </div>
 
-        <!--牵引线-->
-        <img v-for='item in img' :key='item.class' :class='item.class'
-         class='line' src='../../assets/mirror/line.png'>
-
         <!--未来放小人图片的地方-->
         <!-- TODO:点击切换性别 -->
         <div class='img'></div>
@@ -48,13 +44,6 @@ export default {
       name: '',
       adj: [],
       number: 1, // 第几个评价
-      img: [
-        { class: 'one' },
-        { class: 'two' },
-        { class: 'three' },
-        { class: 'four' },
-        { class: 'five' }
-      ],
       words: [
         { class: 'a' },
         { class: 'b' },
@@ -202,40 +191,5 @@ export default {
   .e {
     left: 11.11vw;
     top: 62.03vh;
-  }
-
-  .line {
-    position: absolute;
-    width: 1px;
-  }
-  .one {
-    left: 53.61vw;
-    top: 15.63vh;
-    height: 14.06vh;
-    transform: rotate(35deg);
-  }
-  .two {
-    left: 25vw;
-    top: 29.69vh;
-    height: 19.72vh;
-    transform: rotate(-30deg);
-  }
-  .three {
-    left: 70vw;
-    top: 40vh;
-    height: 10vh;
-    transform: rotate(36deg);
-  }
-  .four {
-    left: 69.44vw;
-    top: 51.56vh;
-    height: 13.88vw;
-    transform: rotate(-30deg);
-  }
-  .five {
-    left: 30vw;
-    top: 49.22vh;
-    height: 14.06vh;
-    transform: rotate(30deg);
   }
 </style>

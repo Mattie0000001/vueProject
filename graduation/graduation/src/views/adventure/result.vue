@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class='whole'>
         <img src='../../assets/mirror/share.png' class='share'
          @click="$router.push({path:'/share'})">
         <div class='main'>
@@ -9,10 +9,10 @@
 
             <div class='title'>{{title}}</div>
 
-            <p class='words'>{{first}}</p>
-            <p class='words'>{{second}}</p>
-            <p class='words'>{{third}}</p>
-            <p class='words'>{{fourth}}</p>
+            <p class='words' v-html='first'></p>
+            <p class='words' v-html='second'></p>
+            <p class='words' v-html='third'></p>
+            <p class='words' v-html='fourth'></p>
         </div>
         <div class='back' @click='back'>返回星球</div>
     </div>
@@ -26,11 +26,11 @@ export default {
       titleOne: ['林深故人', '浮生居士', '青袍道长', '蓬莱仙使'],
       titleTwo: ['老佛爷宝藏茶', '芝芝桃桃', '抹茶可可星冰乐', '大红袍寒冰牛乳茶'],
       titleThree: ['疯狂科学家', '秃头程序员', '时间管理大师', '霍格沃茨学士'],
-      title: '11111',
-      first: '22222',
-      second: '33333',
-      third: '444444',
-      fourth: '555555',
+      title: '',
+      first: '',
+      second: '',
+      third: '',
+      fourth: '',
       personality: 0
     }
   },
@@ -71,7 +71,7 @@ export default {
           : sessionStorage.getItem('nine')
       if (firstItem === 'forest') {
         this.title = this.titleOne[random]
-        this.first = '你的性格较为安静沉稳从，热爱大自然。你喜欢独处，享受属于自己的空间'
+        this.first = '你的性格较为安静沉稳从，热爱大自然<br>你喜欢独处，享受属于自己的空间'
         this.personality += 1 // personality个位为1
       } else if (firstItem === 'sweet') {
         this.title = this.titleTwo[random]
@@ -88,10 +88,10 @@ export default {
         this.second = '你平时喜欢记录生活，细心观察'
         this.personality += 10 // personality十位为1
       } else if (secondItem === 'MP3') {
-        this.second = '你享受音乐为你带来的快乐，懂得如何调节自己的情绪'
+        this.second = '你享受音乐为你带来的快乐,<br>懂得如何调节自己的情绪'
         this.personality += 20 // personality十位为2
       } else if (secondItem === 'diary') {
-        this.second = '你平时喜欢记录生活，对生活充满热爱，同时也有一点小敏感'
+        this.second = '你平时喜欢记录生活，对生活充满热爱，<br>同时也有一点小敏感'
         this.personality += 30 // personality十位为3
       }
       // 第三个
@@ -109,10 +109,10 @@ export default {
       // 第四个
       var fourthItem = sessionStorage.getItem('three')
       if (fourthItem === 'hello') {
-        this.fourth = '你活泼开朗，不惧怕与他人交流，是名副其实的“乐天派”'
+        this.fourth = '你活泼开朗，不惧怕与他人交流，<br>是名副其实的“乐天派”'
         this.personality += 1000 // personality千位为1
       } else if (fourthItem === 'go') {
-        this.fourth = '你为人较为谨慎，可能会有点小内向，略为抗拒尝试新事物'
+        this.fourth = '你为人较为谨慎，可能会有点小内向，<br>略为抗拒尝试新事物'
         this.personality += 2000 // personality千位为2
       }
     },
@@ -125,7 +125,7 @@ export default {
 
       switch (a) {
         case 1 :
-          this.first = '你的性格较为安静沉稳从，热爱大自然。你喜欢独处，享受属于自己的空间'
+          this.first = '你的性格较为安静沉稳从，热爱大自然，<br>喜欢独处，享受属于自己的空间'
           this.title = this.titleOne[e]
           break
         case 2 :
@@ -143,7 +143,7 @@ export default {
           this.second = '你平时喜欢记录生活，细心观察'
           break
         case 2 :
-          this.second = '你享受音乐为你带来的快乐，懂得如何调节自己的情绪'
+          this.second = '你享受音乐为你带来的快乐，<br>懂得如何调节自己的情绪'
           break
         case 3 :
           this.second = '你平时喜欢记录生活，对生活充满热爱，同时也有一点小敏感'
@@ -162,8 +162,8 @@ export default {
           break
       }
 
-      this.fourth = (d === 1) ? '你活泼开朗，不惧怕与他人交流，是名副其实的“乐天派”'
-        : '你为人较为谨慎，可能会有点小内向，略为抗拒尝试新事物'
+      this.fourth = (d === 1) ? '你活泼开朗，不惧怕与他人交流，<br>是名副其实的“乐天派”'
+        : '你为人较为谨慎，可能会有点小内向，<br>略为抗拒尝试新事物'
     }
   },
   mounted: function () {
@@ -188,18 +188,25 @@ export default {
 </script>
 
 <style scoped>
+  .whole {
+    background: rgb(31, 28, 46);
+    height: 100vh;
+    width: 100vw;
+  }
   .main {
     position: relative;
-    top: 30vw;
-    margin-left: 10vw;
-    height: 120vw;
-    width: 80vw;
+    top: 15vw;
+    margin-left: 5vw;
+    height: 140vw;
+    width: 90vw;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     background: rgba(202, 199, 199, 0.5);
+    color: aliceblue;
     border-radius: 15px;
+    font-size: 4vw;
   }
 
   .share {
@@ -214,17 +221,18 @@ export default {
     position: relative;
     top: 3vw;
     margin: auto;
-    width: 33.33vw;
-    height: 33.33vw;
+    width: 20vw;
+    height: 20vw;
   }
 
   .title {
-    width: 40vw;
+    width: 45vw;
     height: 5.31vh;
     border: 1px solid rgb(121, 121, 121);
     border-radius: 10px;
     text-align: center;
     line-height: 5.31vh;
+    font-size: 5
   }
 
   .back {

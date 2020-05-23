@@ -1,53 +1,53 @@
 <template>
-    <div class='whole'>
-        <!--前情回顾-->
-        <div v-if='isFirst'>
-            <story :lines='lines'></story>
-        </div>
-        <head-title :title='title' :tip='tip'>
-            <template v-slot:left>
-              <div class="arrow_wrap" @click="$router.push({ path: '/mainPage'})">
-                  <img src="../../assets/component/arrow.png" alt="">
-              </div>
-            </template>
-        </head-title>
-        <transition name='overturn' mode='out-in'>
-            <div v-if='seen' key='front' class='main'>
-                <div>
-                    <p class='onmirror'>
-                        开启属于你的<br>未知旅程</p>
-                    <img :src='mirrorF' class='mirror'  @click='gotoAdventure'>
-                </div>
-                <div @click='seen = !seen'>
-                    <p class='onbtn'>转</p>
-                    <img :src='btn' class='btn'>
-                </div>
-            </div>
-            <div v-else key='back' class='main'>
-                <div class='you'>
-                    <div class='titleBack'>朋友眼中的你</div>
-                    <div>
-                        <img :src='person' @click='changeGender' class='person'>
-                    </div>
-                    <button class='personBtn' @click="$router.push({ path: '/share'})">
-                        点击进入
-                    </button>
-                </div>
-                <div @click='seen = !seen'>
-                    <p class='onbtn'>转</p>
-                    <img :src='btn' class='btn'>
-                </div>
-            </div>
-        </transition>
-        <div class='footer'>
-            <color-box></color-box>
-        </div>
-
-        <!--性格测评已完成提示-->
-        <div v-if='isAgain'>
-            <hint-pop @hide='hide'></hint-pop>
-        </div>
+  <div class='whole'>
+    <!--前情回顾-->
+    <div v-if='isFirst'>
+      <story :lines='lines'></story>
     </div>
+    <head-title :title='title' :tip='tip'>
+      <template v-slot:left>
+        <div class="arrow_wrap" @click="$router.push({ path: '/mainPage'})">
+          <img src='../../assets/component/arrow.png' alt=''>
+        </div>
+      </template>
+    </head-title>
+      <transition name='overturn' mode='out-in'>
+        <!--正面-->
+        <div v-if='seen' key='front' class='main'>
+          <div>
+            <p class='onmirror'>
+              开启属于你的<br>未知旅程</p>
+            <img :src='mirrorF' class='mirror'  @click='gotoAdventure'>
+          </div>
+          <div @click='seen = !seen'>
+            <p class='onbtn'>转</p>
+            <img :src='btn' class='btn'>
+          </div>
+        </div>
+        <!--反面-->
+        <div v-else key='back' class='main'>
+          <div class='you'>
+            <div class='titleBack'>朋友眼中的你</div>
+            <div>
+              <img :src='person' @click='changeGender' class='person'>
+            </div>
+            <button class='personBtn' @click="$router.push({ path: '/share'})">
+                点击进入
+            </button>
+          </div>
+          <div @click='seen = !seen'>
+              <p class='onbtn'>转</p>
+              <img :src='btn' class='btn'>
+          </div>
+        </div>
+      </transition>
+      <color-box></color-box>
+
+      <!--性格测评已完成提示-->
+      <div v-if='isAgain'>
+        <hint-pop @hide='hide'></hint-pop>
+      </div>
+  </div>
 </template>
 
 <script>
