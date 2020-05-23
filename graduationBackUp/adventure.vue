@@ -1,6 +1,5 @@
 <template>
   <div class='adventure'>
-    
     <img :src='backImg' class='back' @click='isLeave = true'>
 
     <div v-if='now===1' class='test'>
