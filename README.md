@@ -1,6 +1,4 @@
-# vueProject
-
-一些小小的project
+# vue Project
 
 # graduation
 
